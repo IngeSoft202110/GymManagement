@@ -1,3 +1,4 @@
 from django.shortcuts import render
-
-# Create your views here.
+from django.http import HttpResponse
+def loggin(request):
+    return render(request,'loggin.html',context={'msg':'soy el loggin'})
