@@ -8,7 +8,8 @@ def login(request):
 def index(request):
     return render(request,'index.html',context={'msg':'HOME'})
 
+def main_view(request):
+    return render(request,'main_view.html',context={})
 
-
-def signin(request):
-    return render(request,'signin.html',context={'msg':'SIGN IN'})
+def register(request):
+    return render(request,'register.html',context={'msg':'SIGN IN'})
