@@ -16,6 +16,7 @@
 </head>
 
 <body class="bg-gradient-primary">
+    
     <div class="container">
         <div class="card shadow-lg o-hidden border-0 my-5">
             <div class="card-body p-0">
@@ -29,26 +30,27 @@
                         <div class="p-5">
                             <div class="text-center">
                                 <h4 class="text-dark mb-4">Crear Cuenta</h4>
+                                <h3>{{msg}}</h3>
                             </div>
-                            <form class="user" style="width: 700;height: 400;">
+                            <form class="user" action="/register/" method="POST" style="width: 700;height: 400;">
+                                {% csrf_token %}
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input class="form-control form-control-user" type="text" id="nombre"
-                                            placeholder="nombre" name="nombre">
+                                            placeholder="NOMBRE" name="nombre" required>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input class="form-control form-control-user" type="text" id="apellido"
-                                            placeholder="Apellido" name="apellido">
+                                        <input required class="form-control form-control-user" type="text" id="apellido"
+                                            placeholder="APELLIDO" name="apellido">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <input class="form-control form-control-user" type="email" id="email"
-                                            aria-describedby="email" placeholder="Correo electronico" name="email">
+                                        <input required class="form-control form-control-user" type="email" id="email"
+                                            aria-describedby="email" placeholder="CORREO" name="email">
                                     </div>
                                     <div class="col-sm-6">
-                                        <select class="form-control " name="genero" id="genero" >
-                                            
+                                        <select required class="form-control " name="genero" id="genero" >
                                             <option value="M">Masculino</option>
                                             <option value="F">Femenino</option>
                                         </select>
@@ -56,12 +58,14 @@
 
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user"
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input required class="form-control form-control-user"
                                             type="" id="user" placeholder="Usuario" name="user"></div>
-                                    <div class="col-sm-6"><input class="form-control form-control-user" type="password"
-                                            id="contrasena" placeholder="Contraseña" name="password_repeat"></div>
+                                    <div class="col-sm-6">
+                                        <input required class="form-control form-control-user" type="password"
+                                            id="password" placeholder="CONTRASEÑA" name="password"></div>
                                 </div>
-                                <input class="form-control form-control-user" type="date" id="fecha_nacimiento"
+                                <input required class="form-control form-control-user" type="date" id="fecha_nacimiento"
                                     aria-describedby="fecha" placeholder="Fecha de Nacimiento"
                                     name="fecha_nacimiento"><button
                                     class="btn btn-primary btn-block text-white btn-user"
@@ -70,7 +74,7 @@
                                 <hr>
                             </form>
 
-                            <div class="text-center"><a class="small" href="../login">Ya tienes cuenta?</a></div>
+                            <div class="text-center"><a class="small" href="../loginView">Ya tienes cuenta?</a></div>
                         </div>
                     </div>
                 </div>
