@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Usuario
+from .models import Usuario, Rutina
 
 # Register your models here.
 
@@ -7,3 +7,7 @@ from .models import Usuario
 class WitAdmin(admin.ModelAdmin):
     
     list_display = ("id", "usuario" ,"nombre", "apellido", "correo", "genero", "clave", "fecha_nacimiento")
+
+@admin.register(Rutina)
+class WitAdmin(admin.ModelAdmin): 
+    list_display = ("id", "genero" ,"clasificacion", "descripcion", "numeroLikes")

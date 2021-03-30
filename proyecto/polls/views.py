@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
-from .models import Usuario
-
+from .models import Usuario,Rutina
+from django.db.models import Q
 
 @csrf_exempt
 def loginView(request):
@@ -47,11 +47,13 @@ def checkUser(usuario):
 
 def main_view(request):
     usuario= checkUser(request.POST['usuario'])
+    
     if not usuario:
         return render(request, 'login.html',context={'msg':"Usuario no existente"})
     if usuario.clave != request.POST['password']:
-        return render(request, 'login.html',context={'msg':"Clave incorrecta"})
-    return render(request, 'main_view.html',{'usuario':usuario})
+        return render(request, 'login.html',context={'msg':"Clave incorrecta"})   
+    rutinas= Rutina.objects.filter(Q(genero='A') | Q(genero=usuario.genero)  ).order_by('numeroLikes')     
+    return render(request, 'main_view.html',{'usuario':usuario,'rutinas':rutinas})
     
     
 
