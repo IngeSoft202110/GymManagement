@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Register - Brand</title>
+    <title>Register</title>
     <link rel="stylesheet" href=" {% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -32,7 +32,7 @@
                                 <h4 class="text-dark mb-4">Crear Cuenta</h4>
                                 <h3>{{msg}}</h3>
                             </div>
-                            <form class="user" action="/register/" method="POST" style="width: 700;height: 400;">
+                            <form class="user" action="/main_view/" method="POST" style="width: 700;height: 400;">
                                 {% csrf_token %}
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">

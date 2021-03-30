@@ -10,5 +10,6 @@ urlpatterns = [
 
     #Actions
     path('register/',views.register,name='register'),
+    path('main_view/',views.main_view,name='main_view'),
 
 ]
