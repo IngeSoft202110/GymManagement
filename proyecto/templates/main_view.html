@@ -173,13 +173,21 @@
                             <div class="card shadow mb-4">
                                 <div class="card-header d-flex justify-content-between align-items-center"
                                     style="margin: 0px;">
-                                    <h6 class="text-primary font-weight-bold m-0">Tipo de rutina</h6>
+                                    <h6 class="text-primary font-weight-bold m-0">Rutina</h6>
                                     
                                 </div>
                                 <div class="card-body">
                                     <h1>{{rut.clasificacion}}</h1>
-                                    <p>Recomendado para: {{rut.genero}}</p>
-                                    <p style="height: 104px;">Descripción:{{rut.descripcion}}&nbsp;</p>
+                                    {% if rut.genero == 'M' %}
+                                        <p>Recomendado para: Hombres</p>
+                                    {% endif %}
+                                    {% if rut.genero == 'F' %}
+                                        <p>Recomendado para: Mujeres</p>
+                                    {% endif %}
+                                    {% if rut.genero == 'A' %}
+                                        <p>Recomendado para: Ambos</p>
+                                    {% endif %}
+                                    <p style="height: 104px;">Descripción: {{rut.descripcion}}&nbsp;</p>
                                     </p><textarea style="width: 600px;height: 40px;"></textarea>
                                     <button class="btn btn-primary">comentar</button>
                                     <button class="btn btn-primary">ver comentarios</button>
