@@ -25,12 +25,13 @@ class Rutina(models.Model):
         ('F','femenino'),
         ('A','ambos'),
     )
+    usuario=models.ForeignKey(Usuario,on_delete=models.CASCADE, default=1)
     genero=models.CharField(max_length=1, null=False, choices=GENDERS )
     clasificacion= models.CharField(max_length=30, null=False )
     descripcion=models.CharField(max_length=100, null=False )
     numeroLikes=models.IntegerField( null=False )
     def __str__(self):
-        return f"{self.id}, {self.genero}, {self.clasificacion}, {self.descripcion}, {self.numeroLikes} "
+        return f"{self.id}, {self.usuario}, {self.genero}, {self.clasificacion}, {self.descripcion}, {self.numeroLikes} "
 
 #class Ejercicio(models.Model):
 #   nombreEjercicio= models.CharField(max_length=30, null=False )

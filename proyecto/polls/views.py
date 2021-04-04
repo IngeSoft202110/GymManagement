@@ -38,7 +38,6 @@ def register(request):
         return render(request, 'register.html',{'msg':"usuario agregado"})
     else:
         return render(request, 'register.html',{'msg':"Usuario existente"})
-
 def checkUser(usuario):
     try:
         return Usuario.objects.get(usuario=usuario)

@@ -10,4 +10,4 @@ class WitAdmin(admin.ModelAdmin):
 
 @admin.register(Rutina)
 class WitAdmin(admin.ModelAdmin): 
-    list_display = ("id", "genero" ,"clasificacion", "descripcion", "numeroLikes")
+    list_display = ("id", "usuario" , "genero" ,"clasificacion", "descripcion", "numeroLikes")
