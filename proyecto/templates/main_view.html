@@ -159,9 +159,11 @@
                     <div>
                         <select>
                             <optgroup label="filtrar por">
-                                <option value="pierna" selected="">Pierna</option>
-                                <option value="brazo">Brazo</option>
-                                <option value="cardio">hombres</option>
+                                <option value="seleccionar" selected="">Seleccionar</option>
+                                {%for tipo in clasificacion%}
+                                <option value={{tipo}} >{{tipo}}</option>
+
+                                {% endfor %}
                             </optgroup>
                         </select>
                         <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
