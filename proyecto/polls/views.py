@@ -44,6 +44,7 @@ def checkUser(usuario):
     except Exception:
         return False
 
+
 def main_view(request):
     usuario= checkUser(request.POST['usuario'])
     
@@ -52,9 +53,16 @@ def main_view(request):
     if usuario.clave != request.POST['password']:
         return render(request, 'login.html',context={'msg':"Clave incorrecta"})   
     rutinas= Rutina.objects.filter(Q(genero='A') | Q(genero=usuario.genero)  ).order_by('numeroLikes')     
-    return render(request, 'main_view.html',{'usuario':usuario,'rutinas':rutinas})
+    return render(request, 'main_view.html',{'usuario':usuario,'rutinas':rutinas, 'clasificacion':getClasificationsOfRutines()})
     
     
+def getClasificationsOfRutines():
+    rutinas = Rutina.objects.all()
+    clasificaciones = set()
+    for rutina in rutinas:
+        clasificaciones.add(rutina.clasificacion)
+    return clasificaciones
+
 
     
     
