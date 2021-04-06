@@ -157,16 +157,20 @@
 
                     </div>
                     <div>
-                        <select>
-                            <optgroup label="filtrar por">
-                                <option value="seleccionar" selected="">Seleccionar</option>
-                                {%for tipo in clasificacion%}
-                                <option value={{tipo}} >{{tipo}}</option>
-
-                                {% endfor %}
-                            </optgroup>
-                        </select>
-                        <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
+                        <form action="/filtrarRutina/" method="POST" id="form_clasificacion" >
+                            {% csrf_token %}
+                            <select name="clasificacion" id="clasificacion">
+                                <optgroup label="filtrar por">
+                                    <option value="seleccionar" >Seleccionar</option>
+                                    <option value="todas">todas</option>
+                                    {%for tipo in clasificacion%}
+                                    <option value={{tipo}} >{{tipo}}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            </select>
+                        <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
+                        </form>
+                        
                     </div>
                     <!-- Start: Chart -->
                     {%for rut in rutinas%}
@@ -221,6 +225,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="{% static 'assets/js/script.min.js' %}"></script>
+
+
+<script>
+    $(document).ready(()=>{
+        $("#clasificacion").change( e => {
+            $("#form_clasificacion").submit()
+        })
+    })
+</script>
 </body>
 
+
+
 </html>
+
