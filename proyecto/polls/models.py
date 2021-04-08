@@ -25,13 +25,27 @@ class Rutina(models.Model):
         ('F','femenino'),
         ('A','ambos'),
     )
+    CLASIFICATIONS=(
+        ('PIERNA','PIERNA'),
+        ('BRAZO','BRAZO'),
+        ('HOMBRO','HOMBRO'),
+        ('ESPALDA','ESPALDA'),
+        ('ABDOMEN','ABDOMEN'),
+        ('CARDIO','CARDIO')
+    )
+    DIFFICULTY=(
+        ('PRINCIPIANTE','PRINCIPIANTE'),
+        ('INTERMEDIO','INTERMEDIO'),
+        ('AVANZADO','AVANZADO'),   
+    )
     usuario=models.ForeignKey(Usuario,on_delete=models.CASCADE, default=1)
     genero=models.CharField(max_length=1, null=False, choices=GENDERS )
-    clasificacion= models.CharField(max_length=30, null=False )
-    descripcion=models.CharField(max_length=100, null=False )
+    clasificacion= models.CharField(max_length=20, null=False, choices=CLASIFICATIONS, default="PIERNA")
+    descripcion=models.CharField(max_length=500, null=False )
     numeroLikes=models.IntegerField( null=False )
+    dificultad= models.CharField(max_length=20, null=False, choices=DIFFICULTY, default="PRINCIPIANTE")
     def __str__(self):
-        return f"{self.id}, {self.usuario}, {self.genero}, {self.clasificacion}, {self.descripcion}, {self.numeroLikes} "
+        return f"{self.id}, {self.usuario}, {self.genero}, {self.clasificacion}, {self.descripcion}, {self.numeroLikes}, {self.dificultad} "
 
 #class Ejercicio(models.Model):
 #   nombreEjercicio= models.CharField(max_length=30, null=False )
