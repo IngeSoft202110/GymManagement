@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - Brand</title>
+    <title>main view</title>
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -21,22 +21,24 @@
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0">
-                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15"></div>
-                    <div class="sidebar-brand-text mx-3"></div>
-                    <img src="{% static 'assets/img/GymManagement.png' %}" style="width: 160px;height: 64px;">
+                <a href="#">
+                    <img class="img-responsive" alt="Responsive image" src="{% static 'assets/img/GymManagement.png' %}"
+                        style="width: 160px; height: 64px;">
                 </a>
-                <hr class="sidebar-divider my-0">
+
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href=""><i
-                                class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" href="#">
+                            <i class="far fa-user-circle"></i>
+                            <span>Recomendaciones</span>
+                        </a>
+                    </li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i
                                 class="fas fa-user"></i><span>Perfil</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i
                                 class="fas fa-table"></i><span>Mis rutinas</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i
-                                class="far fa-user-circle"></i><span>Mi progreso</span></a></li>
-                    <li class="nav-item" role="presentation"></li>
+                                class="fas fa-tachometer-alt"></i><span>Mi progreso</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline">
                     <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
@@ -69,65 +71,6 @@
                                         </div>
                                     </form>
                                 </div>
-                            </li>
-                            <li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
-                            <li class="nav-item dropdown no-arrow mx-1" role="presentation">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
-                                        data-toggle="dropdown" aria-expanded="false" href="#"></a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in"
-                                        role="menu">
-                                        <h6 class="dropdown-header">alerts center</h6>
-                                        <a class="d-flex align-items-center dropdown-item" href="#">
-                                            <div class="dropdown-list-image mr-3"><img class="rounded-circle"
-                                                    src="/assets/img/avatars/avatar4.jpeg?h=fefb30b61c8459a66bd338b7d790c3d5">
-                                                <div class="bg-success status-indicator"></div>
-                                            </div>
-                                            <div class="font-weight-bold">
-                                                <div class="text-truncate"><span>Hi there! I am wondering if you can
-                                                        help me with a problem I've been having.</span></div>
-                                                <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
-                                            </div>
-                                        </a>
-                                        <a class="d-flex align-items-center dropdown-item" href="#">
-                                            <div class="dropdown-list-image mr-3"><img class="rounded-circle"
-                                                    src="/assets/img/avatars/avatar2.jpeg?h=5d142be9441885f0935b84cf739d4112">
-                                                <div class="status-indicator"></div>
-                                            </div>
-                                            <div class="font-weight-bold">
-                                                <div class="text-truncate"><span>I have the photos that you ordered last
-                                                        month!</span></div>
-                                                <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
-                                            </div>
-                                        </a>
-                                        <a class="d-flex align-items-center dropdown-item" href="#">
-                                            <div class="dropdown-list-image mr-3"><img class="rounded-circle"
-                                                    src="/assets/img/avatars/avatar3.jpeg?h=c5166867f10a4e454b5b2ae8d63268b3">
-                                                <div class="bg-warning status-indicator"></div>
-                                            </div>
-                                            <div class="font-weight-bold">
-                                                <div class="text-truncate"><span>Last month's report looks great, I am
-                                                        very happy with the progress so far, keep up the good
-                                                        work!</span></div>
-                                                <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
-                                            </div>
-                                        </a>
-                                        <a class="d-flex align-items-center dropdown-item" href="#">
-                                            <div class="dropdown-list-image mr-3"><img class="rounded-circle"
-                                                    src="/assets/img/avatars/avatar5.jpeg?h=35dc45edbcda6b3fc752dab2b0f082ea">
-                                                <div class="bg-success status-indicator"></div>
-                                            </div>
-                                            <div class="font-weight-bold">
-                                                <div class="text-truncate"><span>Am I a good boy? The reason I ask is
-                                                        because someone told me that people say this to all dogs, even
-                                                        if they aren't good...</span></div>
-                                                <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
-                                            </div>
-                                        </a><a class="text-center dropdown-item small text-gray-500" href="#">Show All
-                                            Alerts</a>
-                                    </div>
-                                </div>
-                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-right"
-                                    aria-labelledby="alertsDropdown"></div>
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
@@ -162,8 +105,8 @@
                             {% csrf_token %}
                             <select name="clasificacion" id="clasificacion">
                                 <optgroup label="filtrar por">
-                                    <option value="seleccionar">Seleccionar</option>
-                                    <option value="todas">todas</option>
+                                    <option value="seleccionar">Seleccionar categoría</option>
+                                    <option value="todas">TODAS</option>
                                     {%for tipo in clasificacion%}
                                     <option value={{tipo}}>{{tipo}}</option>
                                     {% endfor %}
@@ -175,42 +118,43 @@
                     </div>
                     <!-- Start: Chart -->
                     {%for rut in rutinas%}
-                    <div class="row col-sm-8">
-                        <div class="col-lg-12 col-xl-12" style="padding: 15px;margin: 10px;">
+                    <div class=" d-flex justify-content-center">
+                        <div class="col-lg-12 col-xl-12">
                             <div class="card shadow mb-4">
                                 <div class="card-header d-flex justify-content-between align-items-center"
                                     style="margin: 0px;">
-                                    <h6 class="text-primary font-weight-bold m-0">Rutina</h6>
+                                    <h6 class="text-primary font-weight-bold m-0"> Clasificación: {{rut.clasificacion}}
+                                    </h6>
 
+                                    <h6 class="text-primary font-weight-bold m-0">Dificultad: {{ rut.dificultad }} </a>
+                                    </h6>
+                                    <h6 class="text-primary font-weight-bold m-0">Creada por: <a
+                                            href="#">{{rut.usuario.usuario}}</a> </h6>
                                 </div>
-                                <div class="card-body">
-                                    <h1>{{rut.clasificacion}}</h1>
+
+                                <div class="text-center">
                                     {% if rut.genero == 'M' %}
-                                    <p>Recomendado para: Hombres</p>
+                                    <p><b>Recomendado para:</b> Hombres</p>
                                     {% endif %}
                                     {% if rut.genero == 'F' %}
-                                    <p>Recomendado para: Mujeres</p>
+                                    <p><b>Recomendado para:</b> Mujeres</p>
                                     {% endif %}
                                     {% if rut.genero == 'A' %}
-                                    <p>Recomendado para: Ambos</p>
+                                    <p><b>Recomendado para:</b> Hombres y Mujeres</p>
                                     {% endif %}
-                                    <p style="height: 104px;">Descripción: {{rut.descripcion}}&nbsp;</p>
-                                    </p><textarea></textarea>
+                                    <p style="height: 104px;"><b>Descripción:</b> {{rut.descripcion}}&nbsp;</p>
 
+                                    <textarea placeholder="Comenta aquí"></textarea>
 
+                                    <div class="card-body">
+                                        <button class="btn btn-primary">comentar</button>
+                                        <button class="btn btn-primary">ver comentarios</button>
+                                        <button class="btn btn-primary" type="button" style="height: 37px;">Seguir
+                                            rutina</button>
+                                        <button class="btn btn-danger" type="button">like <i
+                                                class="fa fa-heart"></i></button>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <button class="btn btn-primary">comentar</button>
-                                    <button class="btn btn-primary">ver comentarios</button>
-                                    <button class="btn btn-primary" type="button" style="height: 37px;">Seguir
-                                        rutina</button>
-                                    <button class="btn btn-primary" type="button"><i
-                                            class="fa fa-heart"></i>like</button>
-
-
-
-                                </div>
-
                             </div>
                         </div>
                     </div>
