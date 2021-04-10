@@ -20,7 +20,9 @@ def mainView(request):
 
 def registerView(request):
     return render(request, 'register.html')
-
+    
+def exerciseView(request):
+    return render(request, 'exercise.html')
 
 def register(request):
 
