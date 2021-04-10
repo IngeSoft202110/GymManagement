@@ -1,13 +1,24 @@
 from django.contrib import admin
-from .models import Usuario, Rutina
+from .models import Usuario, Rutina, Comentario, Ejercicio, EjercicioXRutina
 
 # Register your models here.
 
 @admin.register(Usuario)
-class WitAdmin(admin.ModelAdmin):
-    
+class UsuarioAdmin(admin.ModelAdmin):
     list_display = ("id", "usuario" ,"nombre", "apellido", "correo", "genero", "clave", "fecha_nacimiento")
 
 @admin.register(Rutina)
-class WitAdmin(admin.ModelAdmin): 
+class RutinaAdmin(admin.ModelAdmin): 
     list_display = ("id", "usuario" , "genero" ,"clasificacion", "descripcion", "numeroLikes", "dificultad")
+
+@admin.register(Ejercicio)
+class EjercicioAdmin(admin.ModelAdmin): 
+    list_display = ("id", "nombre" , "descripcion" ,"linkYoutube")
+
+@admin.register(Comentario)
+class ComentarioAdmin(admin.ModelAdmin): 
+    list_display = ("id", "usuario" , "rutina" ,"comentario")
+
+@admin.register(EjercicioXRutina)
+class EjercicioXRutinaAdmin(admin.ModelAdmin): 
+    list_display = ("id", "ejercicio" ,"rutina")
