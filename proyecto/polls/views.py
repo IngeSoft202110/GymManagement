@@ -75,9 +75,9 @@ def filtrarRutina(request):
     usuario= checkUser(request.POST['usr'])
     
     if request.POST['clasificacion']=="todas":
-        rutinas= Rutina.objects.filter(Q(genero='A') | Q(genero=usuario.genero)  ).order_by('numeroLikes')     
+        rutinas= Rutina.objects.filter( Q(sitio=request.POST['sitio']) & (Q(genero='A') | Q(genero=usuario.genero))  ).order_by('numeroLikes')     
         return render(request, 'main_view.html',{'usuario':usuario,'rutinas':rutinas, 'clasificacion':getClasificationsOfRutines()})
 
-    rutinas = Rutina.objects.filter( Q(clasificacion=request.POST['clasificacion']) & (Q(genero='A') | Q(genero=usuario.genero)) ).order_by('numeroLikes')  
+    rutinas = Rutina.objects.filter(Q(sitio=request.POST['sitio']) & Q(clasificacion=request.POST['clasificacion']) & (Q(genero='A') | Q(genero=usuario.genero)) ).order_by('numeroLikes')  
     return render(request, 'main_view.html',{'usuario':usuario,'rutinas':rutinas, 'clasificacion':getClasificationsOfRutines()})
 

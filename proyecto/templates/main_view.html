@@ -103,16 +103,25 @@
                     <div>
                         <form action="/filtrarRutina/" method="POST" id="form_clasificacion">
                             {% csrf_token %}
-                            <select name="clasificacion" id="clasificacion">
+                            <select class="form-select" name="clasificacion" id="clasificacion" required>
                                 <optgroup label="filtrar por">
-                                    <option value="seleccionar">Seleccionar categoría</option>
+                                    <option value="todas">Seleccionar categoría</option>
                                     <option value="todas">TODAS</option>
                                     {%for tipo in clasificacion%}
                                     <option value={{tipo}}>{{tipo}}</option>
                                     {% endfor %}
                                 </optgroup>
                             </select>
+
+                            <select class="form-select" name="sitio" id="sitio" required>
+                                <optgroup label="filtrar por sitio"></optgroup>
+                                    <option value="">Seleccionar el sitio</option>
+                                    <option value="CASA">CASA</option>
+                                    <option value="GIMNASIO">GIMNASIO</option>
+                                </optgroup>
+                            </select>
                             <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
+                            <button class="btn btn-success py-0" type="submit"><i class="fas fa-search"></i></button>
                         </form>
 
                     </div>
@@ -142,6 +151,8 @@
                                     {% if rut.genero == 'A' %}
                                     <p><b>Recomendado para:</b> Hombres y Mujeres</p>
                                     {% endif %}
+                                    <p><b>Lugar:</b> {{rut.sitio}}&nbsp;</p>
+
                                     <p style="height: 104px;"><b>Descripción:</b> {{rut.descripcion}}&nbsp;</p>
 
                                     <textarea placeholder="Comenta aquí"></textarea>
@@ -151,7 +162,8 @@
                                             <div class="col-auto mr-auto">
                                                 <button class="btn btn-primary">comentar</button>
                                                 <button class="btn btn-primary">ver comentarios</button>
-                                                <button class="btn btn-primary" type="button" style="height: 37px;">Seguir
+                                                <button class="btn btn-primary" type="button"
+                                                    style="height: 37px;">Seguir
                                                     rutina</button>
                                                 <button class="btn btn-danger" type="button">like <i
                                                         class="fa fa-heart"></i></button>
@@ -184,13 +196,16 @@
     <script src="{% static 'assets/js/script.min.js' %}"></script>
 
 
-    <script>
+    <!-- <script>
         $(document).ready(() => {
             $("#clasificacion").change(e => {
                 $("#form_clasificacion").submit()
             })
+            $("#sitio").change(e => {
+                $("#form_clasificacion").submit()
+            })
         })
-    </script>
+    </script> -->
 </body>
 
 
