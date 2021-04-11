@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Comentarios</title>
+  <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome5-overrides.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}">
+</head>
+
+<body class="bg-gradient-Light">
+  <!-- Start: Comment -->
+  <div class="container bootstrap snippets bootdey">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="blog-comment">
+          <br>
+          <h2 class="text-success">Comentarios de rutina de __________</h2>
+          <br>
+          <div class="comment-box add-comment">
+            <div class="row justify-content-md-start">
+              <div class="col col-lg-2">
+                <span class="commenter-pic">
+                  <img src="{% static 'assets/img/userMale.jpg' %}"  alt="">
+                </span>
+              </div>
+              <div class="col-md-auto">
+                <span class="commenter-name">
+                  <form method="POST" action="#">
+                    <input type="text" placeholder="Escribe aquí" name="Add Comment">
+                    <button type="submit" class="btn btn-danger">Comentar</button>
+                  </form>
+                </span>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <ul class="comments">
+            <li class="clearfix">
+              <img src="{% static 'assets/img/userMale.jpg' %}" alt="">
+              <div class="post-comments">
+                <p class="meta">Abril 07, 2021 <a href="#">Usuario#1</a>
+                </p>
+                <p>
+                  ¿Un Gym?, ¿qué es un gym?, ¡ah, un gym!
+                </p>
+              </div>
+            </li>
+            <li class="clearfix">
+              <img src="{% static 'assets/img/userMale.jpg' %}"  alt="">
+              <div class="post-comments">
+                <p class="meta">Abril 07, 2021 <a href="#"> Usuario#2 </a>
+                 
+                </p>
+                <p>
+                  no me gustó la rutina, emuy faácil para su dificultada
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End: Comment -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+  <script src="{% static 'assets/js/script.min.js' %}"></script>
+</body>
+
+</html>
