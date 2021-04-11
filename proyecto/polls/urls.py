@@ -8,6 +8,7 @@ urlpatterns = [
     path('registerView/',views.registerView,name='registerView'),
     path('mainView/',views.mainView,name='mainView'),
     path('exerciseView/',views.exerciseView,name='exercises'),
+    path('exercisesListView/',views.exercisesListView,name='exercisesList'),
     #Actions
     path('register/',views.register,name='register'),
     path('main_view/',views.main_view,name='main_view'),

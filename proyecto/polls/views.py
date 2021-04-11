@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
-from .models import Usuario,Rutina
+from .models import Usuario,Rutina, Ejercicio
 from django.db.models import Q
 
 @csrf_exempt
@@ -22,7 +22,11 @@ def registerView(request):
     return render(request, 'register.html')
     
 def exerciseView(request):
-    return render(request, 'exercise.html')
+    ejercicios = Ejercicio.objects.all()
+    return render(request, 'exercise.html',{'ejercicios':ejercicios})
+
+def exercisesListView(request):
+    return render(request, 'exercisesList.html')
 
 def register(request):
 
