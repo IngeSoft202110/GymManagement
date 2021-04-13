@@ -27,32 +27,32 @@ class Rutina(models.Model):
         ('A', 'ambos'),
     )
     CLASIFICATIONS = (
-        ('PIERNA', 'PIERNA'),
-        ('BRAZO', 'BRAZO'),
-        ('HOMBRO', 'HOMBRO'),
-        ('ESPALDA', 'ESPALDA'),
-        ('ABDOMEN', 'ABDOMEN'),
-        ('CARDIO', 'CARDIO')
+        ('Pierna', 'Pierna'),
+        ('Brazo', 'Brazo'),
+        ('Hombro', 'Hombro'),
+        ('Espalda', 'Espalda'),
+        ('Abdomen', 'Abdomen'),
+        ('Cardio', 'Cardio')
     )
     DIFFICULTY = (
-        ('PRINCIPIANTE', 'PRINCIPIANTE'),
-        ('INTERMEDIO', 'INTERMEDIO'),
-        ('AVANZADO', 'AVANZADO'),
+        ('Principiante', 'Principiante'),
+        ('Intermedio', 'Intermedio'),
+        ('Avanzado', 'Avanzado'),
     )
     PLACES = (
-        ('CASA', 'CASA'),
-        ('GIMNASIO', 'GIMNASIO')
+        ('Casa', 'Casa'),
+        ('Gimnasio', 'Gimnasio')
     )
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, default=1)
     genero = models.CharField(max_length=1, null=False, choices=GENDERS)
     clasificacion = models.CharField(
-        max_length=20, null=False, choices=CLASIFICATIONS, default="PIERNA")
-    descripcion = models.CharField(max_length=500, null=False)
+        max_length=20, null=False, choices=CLASIFICATIONS, default="Pierna")
+    descripcion = models.CharField(max_length=1000, null=False)
     numeroLikes = models.IntegerField(null=False)
     dificultad = models.CharField(
-        max_length=20, null=False, choices=DIFFICULTY, default="PRINCIPIANTE")
+        max_length=20, null=False, choices=DIFFICULTY, default="Principiante")
     sitio = models.CharField(
-        max_length=20, null=False, choices=PLACES, default="CASA")
+        max_length=20, null=False, choices=PLACES, default="Casa")
     
 
     def __str__(self):

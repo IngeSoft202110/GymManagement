@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Login</title>
+    <title>Ingresar</title>
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -37,19 +37,19 @@
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <input required class="form-control form-control-user" type="" id="usuario"
-                                                aria-describedby="usuario" placeholder="USUARIO" name="usuario">
+                                                aria-describedby="usuario" placeholder="Usuario" name="usuario">
                                         </div>
                                         <div class="form-group">
                                             <input required class="form-control form-control-user" type="password" id="password"
-                                                placeholder="CONTRASEÑA" name="password">
+                                                placeholder="Contraseña" name="password">
                                         </div>
                                         <button class="btn btn-primary btn-block text-white btn-user"
-                                            type="submit">Login
+                                            type="submit">Ingresar
                                         </button>
                                         <hr>
                                         <hr>
                                     </form>
-                                    <div class="text-center"><a class="small" href="/registerView">Crear Cuenta</a>
+                                    <div class="text-center"><a class="small" href="/registerView">Crear cuenta</a>
                                     </div>
                                 </div>
                             </div>

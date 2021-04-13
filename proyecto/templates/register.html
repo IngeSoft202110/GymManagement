@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Register</title>
+    <title>Registrarse</title>
     <link rel="stylesheet" href=" {% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -29,7 +29,7 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h4 class="text-dark mb-4">Crear Cuenta</h4>
+                                <h4 class="text-dark mb-4">Crear cuenta</h4>
                                 <h3>{{msg}}</h3>
                             </div>
                             <form class="user" action="/register/" method="POST" style="width: 700;height: 400;">
@@ -37,17 +37,17 @@
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input class="form-control form-control-user" type="text" id="nombre"
-                                            placeholder="NOMBRE" name="nombre" required>
+                                            placeholder="Nombre" name="nombre" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <input required class="form-control form-control-user" type="text" id="apellido"
-                                            placeholder="APELLIDO" name="apellido">
+                                            placeholder="Apellidos" name="apellido">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
                                         <input required class="form-control form-control-user" type="email" id="email"
-                                            aria-describedby="email" placeholder="CORREO" name="email">
+                                            aria-describedby="email" placeholder="Correo electrónico" name="email">
                                     </div>
                                     <div class="col-sm-6">
                                         <select required class="form-control " name="genero" id="genero" >
@@ -63,18 +63,18 @@
                                             type="" id="user" placeholder="Usuario" name="user"></div>
                                     <div class="col-sm-6">
                                         <input required class="form-control form-control-user" type="password"
-                                            id="password" placeholder="CONTRASEÑA" name="password"></div>
+                                            id="password" placeholder="Contraseña" name="password"></div>
                                 </div>
                                 <input required class="form-control form-control-user" type="date" id="fecha_nacimiento"
                                     aria-describedby="fecha" placeholder="Fecha de Nacimiento"
                                     name="fecha_nacimiento"><button
                                     class="btn btn-primary btn-block text-white btn-user"
-                                    type="submit">Registrar</button>
+                                    type="submit">Registrarse</button>
                                 <hr>
                                 <hr>
                             </form>
 
-                            <div class="text-center"><a class="small" href="../loginView">Ya tienes cuenta?</a></div>
+                            <div class="text-center"><a class="small" href="../loginView">¿Ya tienes cuenta?</a></div>
                         </div>
                     </div>
                 </div>
