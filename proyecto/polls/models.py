@@ -53,10 +53,10 @@ class Rutina(models.Model):
         max_length=20, null=False, choices=DIFFICULTY, default="PRINCIPIANTE")
     sitio = models.CharField(
         max_length=20, null=False, choices=PLACES, default="CASA")
-    series = models.IntegerField( null=False, default=0)
+    
 
     def __str__(self):
-        return f"{self.id}, {self.usuario}, {self.genero}, {self.clasificacion}, {self.descripcion}, {self.numeroLikes}, {self.dificultad}, {self.sitio}, {self.series} "
+        return f"{self.id}, {self.usuario}, {self.genero}, {self.clasificacion}, {self.descripcion}, {self.numeroLikes}, {self.dificultad}, {self.sitio} "
 
 
 class Ejercicio(models.Model):
@@ -65,9 +65,10 @@ class Ejercicio(models.Model):
     linkYoutube = models.CharField(max_length=200, null=False)
     peso = models.IntegerField( null=False, default=0)
     repeticiones = models.IntegerField( null=False, default=0)
+    series = models.IntegerField( null=False, default=0)
 
     def __str__(self):
-        return f"{self.id}, {self.nombre}, {self.descripcion}, {self.linkYoutube}, {self.peso}, {self.repeticiones}  "
+        return f"{self.id}, {self.nombre}, {self.descripcion}, {self.linkYoutube}, {self.peso}, {self.repeticiones}, {self.series}  "
 
 
 class Comentario(models.Model):

@@ -9,11 +9,11 @@ class UsuarioAdmin(admin.ModelAdmin):
 
 @admin.register(Rutina)
 class RutinaAdmin(admin.ModelAdmin): 
-    list_display = ("id", "usuario" , "genero" ,"clasificacion", "descripcion", "numeroLikes", "dificultad", "sitio", "series")
+    list_display = ("id", "usuario" , "genero" ,"clasificacion", "descripcion", "numeroLikes", "dificultad", "sitio")
 
 @admin.register(Ejercicio)
 class EjercicioAdmin(admin.ModelAdmin): 
-    list_display = ("id", "nombre" , "descripcion" ,"linkYoutube", "peso", "repeticiones")
+    list_display = ("id", "nombre" , "descripcion" ,"linkYoutube", "peso", "repeticiones", "series")
 
 @admin.register(Comentario)
 class ComentarioAdmin(admin.ModelAdmin): 
