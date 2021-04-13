@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
-from .models import Usuario,Rutina, Ejercicio
+from .models import Usuario,Rutina, Ejercicio, EjercicioXRutina
 from django.db.models import Q
 
 @csrf_exempt
@@ -80,4 +80,11 @@ def filtrarRutina(request):
 
     rutinas = Rutina.objects.filter(Q(sitio=request.POST['sitio']) & Q(clasificacion=request.POST['clasificacion']) & (Q(genero='A') | Q(genero=usuario.genero)) ).order_by('numeroLikes')  
     return render(request, 'main_view.html',{'usuario':usuario,'rutinas':rutinas, 'clasificacion':getClasificationsOfRutines()})
+
+def exercisesList(request):
+    usuario= checkUser(request.POST['user'])
+    ejercicios= EjercicioXRutina.objects.filter(Q(rutina=request.POST['rutineId']))
+    rutina =Rutina.objects.get(id=request.POST['rutineId'])
+ 
+    return render(request, 'exercisesList.html',{'usuario':usuario,'ejercicios':ejercicios, 'rutina':rutina})
 

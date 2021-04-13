@@ -116,8 +116,8 @@
                             <select class="form-select" name="sitio" id="sitio" required>
                                 <optgroup label="filtrar por sitio"></optgroup>
                                     <option value="">Seleccionar el sitio</option>
-                                    <option value="CASA">CASA</option>
-                                    <option value="GIMNASIO">GIMNASIO</option>
+                                    <option value="CASA">CASA <i class="bi bi-house-door-fill"></i></option>
+                                    <option value="GIMNASIO">GIMNASIO </option>
                                 </optgroup>
                             </select>
                             <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
@@ -143,17 +143,17 @@
 
                                 <div class="text-center">
                                     {% if rut.genero == 'M' %}
-                                    <p><b>Recomendado para:</b> Hombres</p>
+                                    <p><b>Recomendado para:</b> HOMBRES</p>
                                     {% endif %}
                                     {% if rut.genero == 'F' %}
-                                    <p><b>Recomendado para:</b> Mujeres</p>
+                                    <p><b>Recomendado para:</b> MUJERES</p>
                                     {% endif %}
                                     {% if rut.genero == 'A' %}
-                                    <p><b>Recomendado para:</b> Hombres y Mujeres</p>
+                                    <p><b>Recomendado para:</b> HOMBRES Y MUJERES</p>
                                     {% endif %}
-                                    <p><b>Lugar:</b> {{rut.sitio}}&nbsp;</p>
+                                    <p><b>Lugar:</b> {{rut.sitio}}   <span class="glyphicon glyphicon-home" aria-hidden="true"></span> </p>
 
-                                    <p style="height: 104px;"><b>Descripción:</b> {{rut.descripcion}}&nbsp;</p>
+                                    <p style="height: 104px;"><b>Descripción:</b> {{rut.descripcion}}</p>
 
                                     <textarea placeholder="Comenta aquí"></textarea>
 
@@ -169,7 +169,15 @@
                                                         class="fa fa-heart"></i></button>
                                             </div>
                                             <div class="col-auto">
-                                                <button class="btn btn-success">VER</button>
+
+                                                <form method="POST" action="/exercisesList/">
+                                                    {% csrf_token %}
+                                                    <input hidden name="user" id="user" value="{{usuario.usuario}}">
+                                                    <input hidden name="rutineId" id="rutineId" value="{{rut.id}}">
+                                                    
+                                                    <button type="submit" class="btn btn-success">VER</button>
+                                                </form>
+                                                
 
                                             </div>
                                         </div>

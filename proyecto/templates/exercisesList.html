@@ -1,12 +1,12 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html>
+<html style="background-color: #931c1c;color: rgb(193,33,33);">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Blank Page - Brand</title>
+    <title>Ejercicios</title>
+
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -51,7 +51,7 @@
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3"
                             id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-
+                        
                         <ul class="nav navbar-nav flex-nowrap ml-auto">
                             <li class="nav-item dropdown d-sm-none no-arrow" id="Select_filtrado"><a
                                     class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false"
@@ -72,7 +72,8 @@
                             <li class="nav-item dropdown no-arrow" role="presentation">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
                                         data-toggle="dropdown" aria-expanded="false" href="#"><span
-                                            class="d-none d-lg-inline mr-2 text-gray-600 small">Usuario</span></a>
+                                            class="d-none d-lg-inline mr-2 text-gray-600 small">{{usuario.usuario}
+                                        </span></a>
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
                                         <a class="dropdown-item" role="presentation" href="#"><i
                                                 class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a
@@ -90,34 +91,52 @@
                         </ul>
                     </div>
                 </nav>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th id="ejercicio" style="padding: 26px;font-size: 31px;">Ejercicios de rutina : Nombre
-                                    rutina</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td id="nombre_ejercicio1"><a href="#">Nombre ejercicio 1</a> </td>
-                            </tr>
-                            <tr>
-                                <td id="nombre_ejercicio1"><a href="#">Nombre ejercicio 2</a> </td>
-                            </tr>
-                            <tr>
-                                <td id="nombre_ejercicio1"><a href="#">Nombre ejercicio 3</a> </td>
-                            </tr>
-                            <tr>
-                                <td id="nombre_ejercicio1"><a href="#">Nombre ejercicio 4</a> </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="container-fluid">
+                    <!-- Start: Chart -->
+                    <div class="row">
+                        <div class="col-lg-12 col-xl-12" style="padding: 15px;margin: 10px;">
+                            <div class="card shadow mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center"
+                                    style="margin: 0px;">
+                                    <h6 class="text-primary font-weight-bold m-0"> Clasificación: {{rutina.clasificacion}}
+                                    </h6>
+
+                                    <h6 class="text-primary font-weight-bold m-0">Dificultad: {{ rutina.dificultad }} </a>
+                                    </h6>
+                                    <h6 class="text-primary font-weight-bold m-0">Creada por: <a
+                                            href="#">{{rutina.usuario.usuario}}</a> </h6>
+                                </div>
+                                {%for ejercicio in ejercicios%}
+                                <div class="card-header d-flex justify-content-between align-items-center"
+                                    style="margin: 0px;">
+                                    <h5 class="text-primary font-weight-bold m-0">{{ ejercicio.ejercicio.nombre }}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p style="height: 104px;">DESCRIPCIÓN: {{ejercicio.ejercicio.descripcion }}</p>
+                                        </div>
+                                        <div class="col">
+                                            <div class="embed-responsive embed-responsive-21by9">
+                                                <iframe class="embed-responsive-item" src="{{ejercicio.ejercicio.linkYoutube}}"
+                                                    allowfullscreen></iframe>
+                                            </div>
+                                            
+                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End: Chart -->
                 </div>
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © GYM MANAGEMENT 2021</span></div>
+                    <div class="text-center my-auto copyright"><span>Copyright © Brand 2021</span></div>
                 </div>
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>

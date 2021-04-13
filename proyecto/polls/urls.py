@@ -13,4 +13,5 @@ urlpatterns = [
     path('register/',views.register,name='register'),
     path('main_view/',views.main_view,name='main_view'),
     path('filtrarRutina/',views.filtrarRutina,name='filtrarRutina'),
+    path('exercisesList/',views.exercisesList,name='exercisesList'),
 ]
