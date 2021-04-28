@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>main view</title>
+    <title>guardar rutrina</title>
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -35,7 +35,7 @@
                     </li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i
                                 class="fas fa-user"></i><span>Perfil</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="/guardarRutinaView/"><i
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i
                                 class="fas fa-table"></i><span>Mis rutinas</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i
                                 class="fas fa-tachometer-alt"></i><span>Mi progreso</span></a></li>
@@ -57,6 +57,20 @@
                                             class="fas fa-search"></i></button></div>
                             </div>
                         </form>
+                        
+
+                        <div class="col-auto">
+
+                                                <form method="POST" action="/guardarejerciciosView/">
+                                                    {% csrf_token %}
+                                                    <input hidden name="user" id="user" value="{{usuario.usuario}}">
+                                                    <input hidden name="rutineId" id="rutineId" value="{{rut.id}}">
+                                                    
+                                                    <button type="submit" class="btn btn-success">ir a ver ejercicios de las rutinas que yo sigo </button>
+                                                </form>
+                                                
+
+                                            </div>
                         <ul class="nav navbar-nav flex-nowrap ml-auto">
                             <li class="nav-item dropdown d-sm-none no-arrow" id="Select_filtrado"><a
                                     class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false"

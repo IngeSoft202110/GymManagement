@@ -90,6 +90,25 @@ class EjercicioXRutina(models.Model):
         return f"{self.id},  {self.ejercicio}, {self.rutina} "
 
 
+class Ejercicio(models.Model):
+    nombre = models.CharField(max_length=30, null=False)
+    descripcion = models.CharField(max_length=600, null=False)
+    linkYoutube = models.CharField(max_length=200, null=False)
+    peso = models.IntegerField( null=False, default=0)
+    repeticiones = models.IntegerField( null=False, default=0)
+    series = models.IntegerField( null=False, default=0)
+
+    def __str__(self):
+        return f"{self.id}, {self.nombre}, {self.descripcion}, {self.linkYoutube}, {self.peso}, {self.repeticiones}, {self.series}  "
+
+
+#class UsuarioxRutina(models.Model):
+#    rutina = models.ForeignKey(Rutina, on_delete=models.CASCADE )
+#    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE )
+#    def __str__(self):
+#        return f"{self.id}, {self.usuario}, {self.rutina}"
+
+
 # class RutinaRealizada(models.Model):
 #    fecha = models.DateField()
 #    def __str__(self):

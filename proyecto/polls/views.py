@@ -9,6 +9,11 @@ from django.db.models import Q
 def loginView(request):
     return render(request, 'login.html')
 
+def guardarRutinaView(request):
+    return render(request, 'guardarRutina.html')
+
+def guardarejerciciosView(request): 
+    return render(request, 'guardarejercicios.html')
 
 def index(request):
     return render(request, 'index.html')
