@@ -3,8 +3,8 @@ from polls import views
 
 urlpatterns = [
     #Views
-    path('loginView/',views.loginView,name='loginView'),
     path('',views.index,name='index'),
+    path('loginView/',views.loginView,name='loginView'),
     path('registerView/',views.registerView,name='registerView'),
     path('mainView/',views.mainView,name='mainView'),
     path('exerciseView/',views.exerciseView,name='exercises'),
@@ -14,4 +14,8 @@ urlpatterns = [
     path('main_view/',views.main_view,name='main_view'),
     path('filtrarRutina/',views.filtrarRutina,name='filtrarRutina'),
     path('exercisesList/',views.exercisesList,name='exercisesList'),
+    path('verComentarios/',views.verComentarios,name='verComentarios'),
+
+    #Ajax
+    path('comentar/', views.comentar,name="comentar"),
 ]

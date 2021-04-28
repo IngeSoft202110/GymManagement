@@ -1,5 +1,6 @@
 from django.db import models
-from datetime import date
+import datetime
+from django.utils import timezone
 # Create your models here.
 
 
@@ -53,7 +54,6 @@ class Rutina(models.Model):
         max_length=20, null=False, choices=DIFFICULTY, default="Principiante")
     sitio = models.CharField(
         max_length=20, null=False, choices=PLACES, default="Casa")
-    
 
     def __str__(self):
         return f"{self.id}, {self.usuario}, {self.genero}, {self.clasificacion}, {self.descripcion}, {self.numeroLikes}, {self.dificultad}, {self.sitio} "
@@ -63,12 +63,12 @@ class Ejercicio(models.Model):
     nombre = models.CharField(max_length=30, null=False)
     descripcion = models.CharField(max_length=600, null=False)
     linkYoutube = models.CharField(max_length=200, null=False)
-    peso = models.IntegerField( null=False, default=0)
-    repeticiones = models.IntegerField( null=False, default=0)
-    series = models.IntegerField( null=False, default=0)
+    peso = models.IntegerField(null=False, default=0)
+    repeticiones = models.IntegerField(null=False, default=0)
+    series = models.IntegerField(null=False, default=0)
 
     def __str__(self):
-        return f"{self.id}, {self.nombre}, {self.descripcion}, {self.linkYoutube}, {self.peso}, {self.repeticiones}, {self.series}  "
+        return f"{self.id}, {self.nombre}, {self.descripcion}, {self.linkYoutube}, {self.peso}, {self.repeticiones}, {self.series}"
 
 
 class Comentario(models.Model):
@@ -77,18 +77,27 @@ class Comentario(models.Model):
     rutina = models.ForeignKey(
         Rutina, on_delete=models.CASCADE, default=1, null=False)
     comentario = models.CharField(max_length=500, null=False)
+    fecha = models.DateTimeField(default=datetime.datetime.now)
 
     def __str__(self):
-        return f"{self.id}, {self.usuario}, {self.rutina}, {self.comentario} "
+        return f"{self.id}, {self.comentario}, {self.fecha} , {self.usuario}, {self.rutina}"
 
 
 class EjercicioXRutina(models.Model):
     ejercicio = models.ForeignKey(
         Ejercicio, on_delete=models.CASCADE, default=1)
     rutina = models.ForeignKey(Rutina, on_delete=models.CASCADE, default=1)
+
     def __str__(self):
         return f"{self.id},  {self.ejercicio}, {self.rutina} "
 
+
+class UsuarioxRutina(models.Model):
+    rutina = models.ForeignKey(Rutina, on_delete=models.CASCADE )
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE )
+    
+    def _str_(self):
+        return f"{self.id}, {self.usuario}, {self.rutina}"
 
 # class RutinaRealizada(models.Model):
 #    fecha = models.DateField()
