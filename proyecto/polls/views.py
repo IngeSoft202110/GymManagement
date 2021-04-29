@@ -28,6 +28,12 @@ def exerciseView(request):
 def exercisesListView(request):
     return render(request, 'exercisesList.html')
 
+def crearRutinaView(request):
+    return render(request,'crearRutina.html',{'clasificacion':getClasificationsOfRutines()})
+
+def agregarEjercicioXRutinaView(request):
+    return render(request,'agregarEjercicioXRutina.html',{'clasificacion':getClasificationsOfRutines()})
+
 def register(request):
 
     if request.method == 'POST':
