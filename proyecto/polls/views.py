@@ -29,10 +29,23 @@ def exercisesListView(request):
     return render(request, 'exercisesList.html')
 
 def crearRutinaView(request):
-    return render(request,'crearRutina.html',{'clasificacion':getClasificationsOfRutines()})
+    usuario= checkUser(request.POST['usr'])
+    if not usuario:
+        return render(request, 'login.html',context={'msg':"Usuario no existente"})
+    return render(request,'crearRutina.html',{'usuario':usuario, 'clasificacion':getClasificationsOfRutines()})
 
 def agregarEjercicioXRutinaView(request):
-    return render(request,'agregarEjercicioXRutina.html',{'clasificacion':getClasificationsOfRutines()})
+    usuario= checkUser(request.POST['usr'])
+    if request.method == 'POST':
+        genero = request.POST['genero']
+        clasificacion = request.POST['clasificacion']
+        descripcion = "Descripcion"
+        numeroLikes = 0
+        dificultad = request.POST['dificultad']
+        lugar = request.POST['sitio']
+        nueva_rutina = Rutina(usuario= usuario, genero=genero, clasificacion=clasificacion,descripcion=descripcion,numeroLikes=numeroLikes,dificultad=dificultad,sitio=lugar)
+        nueva_rutina.save()
+    return render(request,'agregarEjercicioXRutina.html',{'usuario':usuario,'clasificacion':getClasificationsOfRutines()})
 
 def register(request):
 
