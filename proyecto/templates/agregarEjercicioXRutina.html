@@ -99,25 +99,26 @@
                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
                         <h3 class="text-dark mb-0">Crear rutina</h3>
                     </div>
-                    <form class="user" method="POST" style="width: 700;height: 400;">
+                    <form class="user" action="/agregarEjercicioXRutinaView2/" method="POST" style="width: 700;height: 400;">
                     {% csrf_token %}
-                    <h3>Ejercicios de la rutina</h3>
-                    {%for tipo in clasificacion%}
+                    <h3>Ejercicios de la rutina {{rutina.id}}</h3>
+                    {%for tipo in ejerciciosRutina%}
                     <p>{{tipo}}</p>
                     {% endfor %}
                     <h3>Agregar un ejercicio</h3>
                     <div class="col-sm-6">
-                      <select class="form-control " name="clasificacion" id="clasificacion" required="">
+                      <select class="form-control " name="ejercicio" id="ejercicio" required="">
                           <optgroup label="seleccionar clasificacion">
-                              <option value="todas">Seleccionar Clasificación</option>
-                              <option value="todas">Todas</option>
-                              {%for tipo in clasificacion%}
+                              <option value="todas">Seleccionar ejercicio: </option>
+                              {%for tipo in ejercicios%}
                               <option value="{{tipo}}">{{tipo}}</option>
                               {% endfor %}
                           </optgroup>
                       </select>
                     </div>
                     <p></p>
+                    <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
+                    <input hidden name="rutina" id="rutina" value="{{rutina.id}}">
                     <button class="btn btn-primary btn-block text-white btn-user" type="submit">Agregar ejercicio</button>
                     <hr>
                     <hr>

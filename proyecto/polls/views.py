@@ -39,13 +39,45 @@ def agregarEjercicioXRutinaView(request):
     if request.method == 'POST':
         genero = request.POST['genero']
         clasificacion = request.POST['clasificacion']
-        descripcion = "Descripcion"
+        descripcion = request.POST['descripcion']
         numeroLikes = 0
         dificultad = request.POST['dificultad']
         lugar = request.POST['sitio']
         nueva_rutina = Rutina(usuario= usuario, genero=genero, clasificacion=clasificacion,descripcion=descripcion,numeroLikes=numeroLikes,dificultad=dificultad,sitio=lugar)
         nueva_rutina.save()
-    return render(request,'agregarEjercicioXRutina.html',{'usuario':usuario,'clasificacion':getClasificationsOfRutines()})
+    return render(request,'agregarEjercicioXRutina.html',{'ejerciciosRutina':"",'usuario':usuario,'rutina':nueva_rutina, 'ejercicios':getTodosEjercicios()})
+
+def agregarEjercicioXRutinaView2(request):
+    usuario= checkUser(request.POST['usr'])
+    ejercicio = request.POST['ejercicio']
+    tipoEjercicio = getEjercicio(ejercicio)
+    rutina2 = Rutina.objects.get(id=request.POST['rutina'])
+    nuevo_ejercicioxrutina = EjercicioXRutina(rutina=rutina2,ejercicio=tipoEjercicio)
+    nuevo_ejercicioxrutina.save()
+    return render(request,'agregarEjercicioXRutina.html',{'ejerciciosRutina':getEjercicioXRutina(rutina2),'usuario':usuario,'rutina':rutina2,'ejercicios':getTodosEjercicios()})
+
+def getRutina(idRutina):
+    rutinas = Rutina.objects.all()
+    for rutina in rutinas:
+        if rutina.id == idRutina:
+            return rutina
+    return 0
+def getEjercicio(nombreEjercicio):
+    ejercicios = Ejercicio.objects.all()
+    for ejercicio in ejercicios:
+        if ejercicio.nombre == nombreEjercicio:
+            return ejercicio
+    return 0
+
+
+def getEjercicioXRutina(rutina):
+    ejerciciosxrutinas = EjercicioXRutina.objects.all()
+    ejerciciosxrutinasTodos = set()
+    for ejerciciosxrutina in ejerciciosxrutinas:
+        if ejerciciosxrutina.rutina == rutina:
+            ejerciciosxrutinasTodos.add(ejerciciosxrutina.ejercicio.nombre)
+    return ejerciciosxrutinasTodos
+    
 
 def register(request):
 
@@ -81,7 +113,13 @@ def main_view(request):
     rutinas= Rutina.objects.filter(Q(genero='A') | Q(genero=usuario.genero)  ).order_by('numeroLikes')     
     return render(request, 'main_view.html',{'usuario':usuario,'rutinas':rutinas, 'clasificacion':getClasificationsOfRutines()})
     
-    
+def getTodosEjercicios():
+    ejercicios = Ejercicio.objects.all()
+    ejerciciosTodos = set()
+    for ejercicio in ejercicios:
+        ejerciciosTodos.add(ejercicio.nombre)
+    return ejerciciosTodos
+
 def getClasificationsOfRutines():
     rutinas = Rutina.objects.all()
     clasificaciones = set()
