@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
-from .models import Usuario,Rutina, Ejercicio, EjercicioXRutina
+from .models import EjercicioRealizada, Usuario,Rutina, Ejercicio, EjercicioXRutina
 from django.db.models import Q
 
 @csrf_exempt
@@ -51,6 +51,15 @@ def register(request):
         return render(request, 'register.html',{'msg':"usuario agregado"})
     else:
         return render(request, 'register.html',{'msg':"Usuario existente"})
+
+
+def guardarRutina(request):
+     usuario= checkUser(request.POST['verUser'])
+     rutina = Rutina.objects.get(id=request.POST['verRutinaID'])
+     nuevoRutinaRealizada = EjercicioRealizada(usuario = usuario, ejercicio = rutina)
+     nuevoRutinaRealizada.save()
+     return render(request, 'guardarRutina.html')
+
 
 def checkUser(usuario):
     try:

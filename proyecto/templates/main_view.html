@@ -162,9 +162,13 @@
                                             <div class="col-auto mr-auto">
                                                 <button class="btn btn-primary">Comentar</button>
                                                 <button class="btn btn-primary">Ver comentarios</button>
+                                            <form action="guardarRutina" method="POST">
+                                            <input hidden name="verUser" id="verUser" value="{{usuario.usuario}}">
+                                            <input hidden name="verRutinaID" id="verRutinaID" value="{{rut.id}}">
                                                 <button class="btn btn-primary" type="button"
                                                     style="height: 37px;">Seguir
                                                     rutina</button>
+                                             </form>
                                                 <button class="btn btn-danger" type="button">Me gusta <i
                                                         class="fa fa-heart"></i></button>
                                             </div>

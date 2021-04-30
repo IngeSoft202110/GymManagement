@@ -1,3 +1,4 @@
+from proyecto.polls.views import guardarRutina
 from django.urls import path
 from polls import views
 
@@ -11,6 +12,7 @@ urlpatterns = [
     path('exercisesListView/',views.exercisesListView,name='exercisesList'),    
     path('guardarRutinaView/',views.guardarRutinaView,name='guardarRutinaView'),
     path('guardarejerciciosView/',views.guardarejerciciosView, name = 'guardarejerciciosView'),
+    path('guardarRutina/', views.guardarRutina, name= 'guardarRutina')
     #Actions
     path('register/',views.register,name='register'),
     path('main_view/',views.main_view,name='main_view'),
