@@ -19,6 +19,6 @@ class EjercicioAdmin(admin.ModelAdmin):
 class ComentarioAdmin(admin.ModelAdmin): 
     list_display = ("id", "usuario" , "rutina" ,"comentario")
 
-#@admin.register(UsuarioxRutina)
-#class RutinaAdmin(admin.ModelAdmin): 
-#    list_display = ("id", "usuario" , "rutina")
+@admin.register(EjercicioXRutina)
+class EjercicioXRutinaAdmin(admin.ModelAdmin): 
+    list_display = ("id", "ejercicio" ,"rutina")

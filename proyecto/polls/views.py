@@ -10,6 +10,8 @@ def loginView(request):
     return render(request, 'login.html')
 
 def guardarRutinaView(request):
+   # usuario= checkUser(request.POST['user'])
+   # rutina = filtrarRutina(request.POST)
     return render(request, 'guardarRutina.html')
 
 def guardarejerciciosView(request): 
