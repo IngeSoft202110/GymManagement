@@ -99,7 +99,19 @@ class UsuarioxRutina(models.Model):
     def _str_(self):
         return f"{self.id}, {self.usuario}, {self.rutina}"
 
-# class RutinaRealizada(models.Model):
-#    fecha = models.DateField()
-#    def __str__(self):
-#        return f"{self.id}, {self.fecha} "
+class Sala(models.Model):
+    usuario1 = models.CharField(max_length=20, null=False)
+    usuario2 = models.CharField(max_length=20, null=False)
+
+    def _str_(self):
+        return f"{self.id}, {self.usuario1}, {self.usuario2}"
+
+class Mensaje(models.Model):
+    sala= models.IntegerField(default=1)
+    usuario =  models.CharField(max_length=20, null=False, default="Anonimo")
+    fecha = models.DateTimeField(default=datetime.datetime.now)
+    mensaje = models.CharField(max_length=1000, null=False)
+
+    def _str_(self):
+        return f"{self.id}, {self.usuario} ,{self.fecha}, {self.mensaje}, {self.sala}"
+

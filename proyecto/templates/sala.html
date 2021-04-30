@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome5-overrides.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a href="#">
+                    <img class="img-responsive" alt="Responsive image" src="{% static 'assets/img/GymManagement.png' %}"
+                        style="width: 160px; height: 64px;">
+                </a>
+
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <form action="/main_view/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="far fa-user-circle"></i>
+                                <span>Recomendaciones</span>
+                            </button>
+                        </li>
+                    </form>
+                    <form action="/main_view/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
+                                    class="fas fa-user"></i><span>Perfil</span></button></li>
+                    </form>
+
+                    <form action="#" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
+                                    class="fas fa-table"></i><span>Mis rutinas</span></button></li>
+                    </form>
+
+                    <form action="#" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
+                                    class="fas fa-tachometer-alt"></i><span>Mi progreso</span></button></li>
+                    </form>
+
+                    <form action="/verChats/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation"> <button class="btn btn-primary" type="submit"><i
+                                    class="far fa-address-book"></i><span>Conversaciones</span></button> </li>
+                    </form>
+                </ul>
+                <div class="text-center d-none d-md-inline">
+                    <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid">
+                        <form
+                            class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
+                                    placeholder="Buscar usuario">
+                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i
+                                            class="fas fa-search"></i></button></div>
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav flex-nowrap ml-auto">
+                            <li class="nav-item dropdown d-sm-none no-arrow" id="Select_filtrado"><a
+                                    class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false"
+                                    href="#"><i class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" role="menu"
+                                    aria-labelledby="searchDropdown">
+                                    <form class="form-inline mr-auto navbar-search w-100">
+                                        <div class="input-group"><input class="bg-light form-control border-0 small"
+                                                type="text" placeholder="Search for ...">
+                                            <div class="input-group-append"><button class="btn btn-primary py-0"
+                                                    type="button"><i class="fas fa-search"></i></button></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow" role="presentation">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
+                                        data-toggle="dropdown" aria-expanded="false" href="#"><span
+                                            class="d-none d-lg-inline mr-2 text-gray-600 small">{{usuario.usuario}}
+                                        </span></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
+                                        <a class="dropdown-item" role="presentation" href="#"><i
+                                                class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Perfil</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation"
+                                            href="/"><i
+                                                class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Salir</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container-fluid" style="width: 400;">
+                    <section class="section">
+
+                        <div class="columns is-multiline">
+
+
+                            <div class="column is-6 is-offset-3">
+                                <div class="box">
+                                    <div id="chat-messages" style="max-height: 300px; overflow-y: scroll;">
+                                        {% for m in messages %}
+                                        <b>{{ m.usuario }}</b>: {{ m.mensaje }}<br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input" type="text" placeholder="Message" id="chat-message-input">
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <div class="control">
+                                        <a class="button is-info" id="chat-message-submit">Submit</a>
+                                    </div>
+                                </div>
+
+                                <small class="has-text-grey-light">Tu usuario: {{ usuario.usuario }}</small>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    {{ sala|json_script:"json-roomname" }}
+    {{ usuario.usuario|json_script:"json-username" }}
+
+
+    <script>
+
+        function scrollToBottom() {
+            let objDiv = document.getElementById("chat-messages");
+            objDiv.scrollTop = objDiv.scrollHeight;
+        }
+
+        scrollToBottom();
+
+        const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
+        const userName = JSON.parse(document.getElementById('json-username').textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/'
+            + roomName
+            + '/'
+        );
+
+        chatSocket.onmessage = function (e) {
+            console.log('onmessage');
+
+            const data = JSON.parse(e.data);
+
+            if (data.message) {
+                document.querySelector('#chat-messages').innerHTML += ('<b>' + data.username + '</b>: ' + data.message + '<br>');
+            } else {
+                alert('The message is empty!');
+            }
+
+            scrollToBottom();
+        };
+
+        chatSocket.onclose = function (e) {
+            console.log('The socket close unexpectadly');
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function (e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+
+            chatSocket.send(JSON.stringify({
+                'message': message,
+                'username': userName,
+                'room': roomName
+            }));
+
+            messageInputDom.value = '';
+        };
+
+    </script>
+
+</body>
+
+
+</html>

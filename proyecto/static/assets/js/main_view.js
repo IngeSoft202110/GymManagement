@@ -39,9 +39,9 @@ $(document).ready(() => {
         );
         
     })
-    $("#sitio").change(e => {
-        $("#form_clasificacion").submit()
-    })
+    // $("#sitio").change(e => {
+    //     $("#form_clasificacion").submit()
+    // })
 })
 
 
