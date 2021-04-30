@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
-from .models import Usuario,Rutina, Ejercicio, EjercicioXRutina, Comentario
+from .models import Usuario,Rutina, Ejercicio, EjercicioXRutina, Comentario, Sala, Mensaje
 from django.db.models import Q
 
 def loginView(request):
@@ -13,7 +13,6 @@ def index(request):
 
 def mainView(request):
     return render(request, 'main_view.html')
-
 
 def registerView(request):
     return render(request, 'register.html')
@@ -48,21 +47,24 @@ def checkUser(usuario):
     except Exception:
         return False
 
-
 def main_view(request):
 
     if not checkPostRequest(request):
         return render(request, 'login.html')
     usuario= checkUser(request.POST['usuario'])
-    
     if not usuario:
         return render(request, 'login.html',context={'msg':"Usuario no existente"})
+    
+    rutinas= Rutina.objects.filter(Q(genero='A') | Q(genero=usuario.genero)  ).order_by('numeroLikes')
+    print(request.POST)
+    if not "password" in request.POST:
+        return render(request, 'main_view.html',{'usuario':usuario,'rutinas':rutinas, 'clasificacion':getClasificationsOfRutines()})
+
     if usuario.clave != request.POST['password']:
         return render(request, 'login.html',context={'msg':"Clave incorrecta"})   
-    rutinas= Rutina.objects.filter(Q(genero='A') | Q(genero=usuario.genero)  ).order_by('numeroLikes')     
+         
     return render(request, 'main_view.html',{'usuario':usuario,'rutinas':rutinas, 'clasificacion':getClasificationsOfRutines()})
-    
-    
+       
 def getClasificationsOfRutines():
     rutinas = Rutina.objects.all()
     clasificaciones = set()
@@ -111,10 +113,23 @@ def verComentarios(request):
     comentarios = Comentario.objects.filter(Q(rutina=rutina) )
     return render(request, "coments.html", {'usuario':usuario,'comentarios':comentarios, 'rutina':rutina} )
 
-
+def verChats(request):
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
+    salas = Sala.objects.filter(Q(usuario1=request.POST['usuario']) | Q(usuario2=request.POST['usuario']) ).distinct()
+    
+    return render(request, "bandejaMensajes.html", {'usuario':checkUser(request.POST['usuario']), 'salas':salas} )
 
 def checkPostRequest(request):
     if not request.POST:
         return False
     return True
     
+
+def irSala(request):
+    print(request.POST)
+    usuario = checkUser(request.POST['usuario'])
+    messages = Mensaje.objects.filter(sala=request.POST['sala'])
+    
+
+    return render(request, 'sala.html', {'sala': request.POST['sala'], 'usuario': usuario, 'messages': messages})

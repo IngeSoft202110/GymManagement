@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'proyecto',
-    'polls.apps.PollsConfig'
+    'polls.apps.PollsConfig',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+
+WSGI_APPLICATION = 'proyecto.wsgi.application'
+ASGI_APPLICATION = 'proyecto.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
