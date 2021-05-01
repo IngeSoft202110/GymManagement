@@ -97,6 +97,13 @@
                                     </form>
                                 </div>
                             </li>
+                            <div >
+                                <form action="/crearRutinaView/" method="POST">
+                                    {% csrf_token %}
+                                    <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
+                                    <button type="submit">Crear Rutina</button>
+                                </form>
+                            </div>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
