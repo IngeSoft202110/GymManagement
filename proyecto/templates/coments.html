@@ -24,48 +24,25 @@
       <div class="col-md-12">
         <div class="blog-comment">
           <br>
-          <h2 class="text-success">Comentarios de rutina de __________</h2>
+          <h2 class="text-success">Comentarios de rutina para {{rutina.clasificacion}} creada por
+            {{rutina.usuario.usuario}} </h2>
           <br>
-          <div class="comment-box add-comment">
-            <div class="row justify-content-md-start">
-              <div class="col col-lg-2">
-                <span class="commenter-pic">
-                  <img src="{% static 'assets/img/userMale.jpg' %}"  alt="">
-                </span>
-              </div>
-              <div class="col-md-auto">
-                <span class="commenter-name">
-                  <form method="POST" action="#">
-                    <input type="text" placeholder="Escribe aquí" name="Add Comment">
-                    <button type="submit" class="btn btn-danger">Comentar</button>
-                  </form>
-                </span>
-              </div>
-            </div>
-          </div>
-          <hr />
           <ul class="comments">
+            {%for comentario in comentarios%}
             <li class="clearfix">
-              <img src="{% static 'assets/img/userMale.jpg' %}" alt="">
-              <div class="post-comments">
-                <p class="meta">Abril 07, 2021 <a href="#">Usuario#1</a>
-                </p>
-                <p>
-                  ¿Un Gym?, ¿qué es un gym?, ¡ah, un gym!
-                </p>
-              </div>
+              <p class="meta">fecha del comentario: {{comentario.fecha}} &emsp; &emsp; &emsp; Realizado por: <a
+                  href="#">{{comentario.usuario.usuario}}</a>
+              </p>
+              <!-- <img src="{% static 'assets/img/userMale.jpg' %}" alt=""> -->
+
+
+              <p>
+                &emsp; &emsp; &emsp;{{comentario.comentario}}
+              </p>
+
             </li>
-            <li class="clearfix">
-              <img src="{% static 'assets/img/userMale.jpg' %}"  alt="">
-              <div class="post-comments">
-                <p class="meta">Abril 07, 2021 <a href="#"> Usuario#2 </a>
-                 
-                </p>
-                <p>
-                  no me gustó la rutina, emuy faácil para su dificultada
-                </p>
-              </div>
-            </li>
+            {% endfor %}
+
           </ul>
         </div>
       </div>

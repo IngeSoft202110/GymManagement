@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Usuario, Rutina, Comentario, Ejercicio, EjercicioXRutina
+from .models import Usuario, Rutina, Comentario, Ejercicio
+from .models import  EjercicioXRutina, UsuarioxRutina, Sala, Mensaje
 
 # Register your models here.
 
@@ -17,8 +18,20 @@ class EjercicioAdmin(admin.ModelAdmin):
 
 @admin.register(Comentario)
 class ComentarioAdmin(admin.ModelAdmin): 
-    list_display = ("id", "usuario" , "rutina" ,"comentario")
+    list_display = ("id","comentario" , "fecha" ,"usuario" , "rutina" )
 
 @admin.register(EjercicioXRutina)
 class EjercicioXRutinaAdmin(admin.ModelAdmin): 
     list_display = ("id", "ejercicio" ,"rutina")
+
+@admin.register(UsuarioxRutina)
+class RutinaAdmin(admin.ModelAdmin): 
+   list_display = ("id", "usuario" , "rutina")
+
+@admin.register(Sala)
+class EjercicioXRutinaAdmin(admin.ModelAdmin): 
+    list_display = ("id", "usuario1" ,"usuario2")
+
+@admin.register(Mensaje)
+class RutinaAdmin(admin.ModelAdmin): 
+   list_display = ("id", "fecha" , "mensaje", "sala")
