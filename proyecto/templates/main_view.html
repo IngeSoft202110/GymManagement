@@ -64,6 +64,13 @@
                         <li class="nav-item" role="presentation"> <button class="btn btn-primary" type="submit"><i
                                     class="far fa-address-book"></i><span>Conversaciones</span></button> </li>
                     </form>
+                    
+                    <form action="/crearRutinaView/" method="POST">
+                        {% csrf_token %}
+                        <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation"> <button class="btn btn-primary" type="submit"><i
+                            class="far fa-address-book"></i><span>Crear Rutina</span></button> </li>
+                    </form>
                 </ul>
                 <div class="text-center d-none d-md-inline">
                     <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
@@ -97,12 +104,7 @@
                                     </form>
                                 </div>
                             </li>
-                            <div >
-                                <form action="/crearRutinaView/" method="POST">
-                                    {% csrf_token %}
-                                    <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
-                                    <button type="submit">Crear Rutina</button>
-                                </form>
+                            <div>
                             </div>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
