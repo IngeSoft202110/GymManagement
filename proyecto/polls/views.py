@@ -30,6 +30,8 @@ def crearRutinaView(request):
         return render(request, 'login.html',context={'msg':"Usuario no existente"})
     return render(request,'crearRutina.html',{'usuario':usuario, 'clasificacion':getClasificationsOfRutines()})
 
+
+
 def agregarEjercicioXRutinaView(request):
     usuario= checkUser(request.POST['usr'])
     if request.method == 'POST':
