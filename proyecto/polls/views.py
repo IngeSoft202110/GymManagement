@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
-from .models import Usuario,Rutina, Ejercicio, EjercicioXRutina, Comentario, Sala, Mensaje
+from .models import Usuario,Rutina, Ejercicio, EjercicioXRutina, Comentario, Sala, Mensaje, UsuarioxRutina
 from django.db.models import Q
 
 def loginView(request):
@@ -184,3 +184,23 @@ def irSala(request):
     
 
     return render(request, 'sala.html', {'sala': request.POST['sala'], 'usuario': usuario, 'messages': messages})
+
+
+def seguirRutina(request):
+    print(request.POST)
+    usuario= checkUser(request.POST['usuario'])
+    rutina = Rutina.objects.get(id=request.POST["rutina"])
+    print(usuario)
+    print(rutina)
+    buscarUsuarioXRutina = UsuarioxRutina.objects.filter(Q(usuario=usuario) | Q(rutina=rutina))
+    print(buscarUsuarioXRutina)
+    print("*******************************************")
+
+    if not buscarUsuarioXRutina:
+        usuarioxRutina = UsuarioxRutina(rutina=rutina,usuario=usuario)
+        usuarioxRutina.save()
+
+    return JsonResponse({"msg": "rutina agregada"}, status=200)
+
+
+
