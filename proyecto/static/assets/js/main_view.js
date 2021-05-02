@@ -1,11 +1,11 @@
-function getCookie(name) {
+function getCookie( name ) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
+        for ( let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
             // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            if ( cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
             }
@@ -14,19 +14,19 @@ function getCookie(name) {
     return cookieValue;
 }
 
-$(document).ready(() => {
+$(document ).ready(() => {
     const csrftoken = getCookie('csrftoken');
     $(".comentar").on("click", e => {
         $.ajax({
             url: "/comentar/",
             headers: { 'X-CSRFToken': csrftoken },
             data: {
-                ...$(e.target).data(),
+                ...$( e.target).data(),
                 ...{ comentario: $(e.target).closest(".rutina").find(".comentario").val() }
             },
             method: "POST",
             success: () => {
-                $(e.target).closest(".rutina").find(".comentario").val("")
+                $( e.target).closest(".rutina").find(".comentario").val("")
             }
         });
     });
@@ -36,10 +36,23 @@ $(document).ready(() => {
         $.ajax({
             url: "/seguirRutina/",
             headers: { 'X-CSRFToken': csrftoken },
-            data: $(e.target).data(),
+            data: $( e.target).data(),
             method: "POST",
             success: () => {
                 console.log("segui la rutina");
+            }
+        });
+    });
+    $(".like").on("click", e => {
+        console.log($(e.target).data());
+        $.ajax({
+            url: "/like/",
+            headers: { 'X-CSRFToken': csrftoken },
+            data: $(e.target).data(),
+            method: "POST",
+            success: () => {
+                alert("has dado like")
+                console.log("he dado like");
             }
         });
     });
