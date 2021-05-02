@@ -44,7 +44,7 @@
                                     class="fas fa-user"></i><span>Perfil</span></button></li>
                     </form>
 
-                    <form action="#" method="POST">
+                    <form action="/guardarRutinaView/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="usuario" value="{{usuario.usuario}}">
                         <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
@@ -211,8 +211,7 @@
                                             </div>
                                             <div class="col-auto mr-auto">
                                                 <button class="btn btn-primary seguir" type="button"
-                                                    style="height: 37px;">Seguir
-                                                    rutina</button>
+                                                    style="height: 37px;">Seguir rutina</button>
                                             </div>
 
                                             <div class="col-auto mr-auto">

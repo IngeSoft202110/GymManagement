@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
-from .models import Usuario,Rutina, Ejercicio, EjercicioXRutina, Comentario, Sala, Mensaje
+from .models import Usuario,Rutina, Ejercicio, EjercicioXRutina, Comentario, Sala, Mensaje, UsuarioxRutina
 from django.db.models import Q
 
 def loginView(request):
@@ -176,6 +176,23 @@ def checkPostRequest(request):
         return False
     return True
     
+def guardarRutinaView(request):
+    usuario= checkUser(request.POST['usuario'])
+    usuarioxrutina = UsuarioxRutina.objects.all()
+    listado = set()
+    for rutina in usuarioxrutina:
+        if rutina.usuario == usuario:
+            listado.add(rutina.rutina)
+    return render(request, 'guardarRutina.html', {'rutinas':listado, 'usuario':usuario})
+
+def exercisesList(request):
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
+    usuario= checkUser(request.POST['user'])
+    ejercicios= EjercicioXRutina.objects.filter(Q(rutina=request.POST['rutineId']))
+    rutina =Rutina.objects.get(id=request.POST['rutineId'])
+ 
+    return render(request, 'exercisesList.html',{'usuario':usuario,'ejercicios':ejercicios, 'rutina':rutina})
 
 def irSala(request):
     print(request.POST)
