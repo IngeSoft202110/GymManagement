@@ -9,7 +9,7 @@ urlpatterns = [
     path('mainView/',views.mainView,name='mainView'),
     path('exerciseView/',views.exerciseView,name='exercises'),
     path('exercisesListView/',views.exercisesListView,name='exercisesList'),
-    
+
     #Actions
     path('register/',views.register,name='register'),
     path('main_view/',views.main_view,name='main_view'),
@@ -19,7 +19,7 @@ urlpatterns = [
     path('verChats/',views.verChats,name='verChats'),
     path('sala/', views.irSala, name='sala'),
 
-
     #Ajax
     path('comentar/', views.comentar,name="comentar"),
+    path('seguirRutina/', views.seguirRutina,name="seguirRutina"),
 ]

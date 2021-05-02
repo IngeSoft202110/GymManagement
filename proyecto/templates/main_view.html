@@ -97,6 +97,13 @@
                                     </form>
                                 </div>
                             </li>
+                            <div>
+                                <form action="/crearRutinaView/" method="POST">
+                                    {% csrf_token %}
+                                    <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
+                                    <button type="submit">Crear Rutina</button>
+                                </form>
+                            </div>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
@@ -203,9 +210,10 @@
                                                 </form>
                                             </div>
                                             <div class="col-auto mr-auto">
-                                                <button class="btn btn-primary seguir" type="button"
-                                                    style="height: 37px;">Seguir
-                                                    rutina</button>
+                                                <button class="btn btn-primary seguir"
+                                                    data-usuario="{{usuario.usuario}}" data-rutina="{{rut.id}}">Seguir
+                                                    rutina
+                                                </button>
                                             </div>
 
                                             <div class="col-auto mr-auto">
@@ -220,7 +228,6 @@
                                                     {% csrf_token %}
                                                     <input type="hidden" name="user" value="{{usuario.usuario}}">
                                                     <input type="hidden" name="rutineId" value="{{rut.id}}">
-
                                                     <button type="submit" class="btn btn-success">Ver</button>
                                                 </form>
 
@@ -249,7 +256,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="{% static 'assets/js/script.min.js' %}"></script>
     <script src="{% static 'assets/js/main_view.js' %}"></script>
-    <script src="{% static 'assets/js/menu.js' %}"></script>
+
 </body>
 
 

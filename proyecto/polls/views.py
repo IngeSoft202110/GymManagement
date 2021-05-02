@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
-from .models import Usuario,Rutina, Ejercicio, EjercicioXRutina, Comentario, Sala, Mensaje
+from .models import Usuario,Rutina, Ejercicio, EjercicioXRutina, Comentario, Sala, Mensaje, UsuarioxRutina
 from django.db.models import Q
 
 def loginView(request):
@@ -23,6 +23,57 @@ def exerciseView(request):
 
 def exercisesListView(request):
     return render(request, 'exercisesList.html')
+
+def crearRutinaView(request):
+    usuario= checkUser(request.POST['usr'])
+    if not usuario:
+        return render(request, 'login.html',context={'msg':"Usuario no existente"})
+    return render(request,'crearRutina.html',{'usuario':usuario, 'clasificacion':getClasificationsOfRutines()})
+
+def agregarEjercicioXRutinaView(request):
+    usuario= checkUser(request.POST['usr'])
+    if request.method == 'POST':
+        genero = request.POST['genero']
+        clasificacion = request.POST['clasificacion']
+        descripcion = request.POST['descripcion']
+        numeroLikes = 0
+        dificultad = request.POST['dificultad']
+        lugar = request.POST['sitio']
+        nueva_rutina = Rutina(usuario= usuario, genero=genero, clasificacion=clasificacion,descripcion=descripcion,numeroLikes=numeroLikes,dificultad=dificultad,sitio=lugar)
+        nueva_rutina.save()
+    return render(request,'agregarEjercicioXRutina.html',{'ejerciciosRutina':"",'usuario':usuario,'rutina':nueva_rutina, 'ejercicios':getTodosEjercicios()})
+
+def agregarEjercicioXRutinaView2(request):
+    usuario= checkUser(request.POST['usr'])
+    ejercicio = request.POST['ejercicio']
+    tipoEjercicio = getEjercicio(ejercicio)
+    rutina2 = Rutina.objects.get(id=request.POST['rutina'])
+    nuevo_ejercicioxrutina = EjercicioXRutina(rutina=rutina2,ejercicio=tipoEjercicio)
+    nuevo_ejercicioxrutina.save()
+    return render(request,'agregarEjercicioXRutina.html',{'ejerciciosRutina':getEjercicioXRutina(rutina2),'usuario':usuario,'rutina':rutina2,'ejercicios':getTodosEjercicios()})
+
+def getRutina(idRutina):
+    rutinas = Rutina.objects.all()
+    for rutina in rutinas:
+        if rutina.id == idRutina:
+            return rutina
+    return 0
+def getEjercicio(nombreEjercicio):
+    ejercicios = Ejercicio.objects.all()
+    for ejercicio in ejercicios:
+        if ejercicio.nombre == nombreEjercicio:
+            return ejercicio
+    return 0
+
+
+def getEjercicioXRutina(rutina):
+    ejerciciosxrutinas = EjercicioXRutina.objects.all()
+    ejerciciosxrutinasTodos = set()
+    for ejerciciosxrutina in ejerciciosxrutinas:
+        if ejerciciosxrutina.rutina == rutina:
+            ejerciciosxrutinasTodos.add(ejerciciosxrutina.ejercicio.nombre)
+    return ejerciciosxrutinasTodos
+    
 
 def register(request):
 
@@ -64,7 +115,7 @@ def main_view(request):
         return render(request, 'login.html',context={'msg':"Clave incorrecta"})   
          
     return render(request, 'main_view.html',{'usuario':usuario,'rutinas':rutinas, 'clasificacion':getClasificationsOfRutines()})
-       
+
 def getClasificationsOfRutines():
     rutinas = Rutina.objects.all()
     clasificaciones = set()
@@ -133,3 +184,23 @@ def irSala(request):
     
 
     return render(request, 'sala.html', {'sala': request.POST['sala'], 'usuario': usuario, 'messages': messages})
+
+
+def seguirRutina(request):
+    print(request.POST)
+    usuario= checkUser(request.POST['usuario'])
+    rutina = Rutina.objects.get(id=request.POST["rutina"])
+    print(usuario)
+    print(rutina)
+    buscarUsuarioXRutina = UsuarioxRutina.objects.filter(Q(usuario=usuario) | Q(rutina=rutina))
+    print(buscarUsuarioXRutina)
+    print("*******************************************")
+
+    if not buscarUsuarioXRutina:
+        usuarioxRutina = UsuarioxRutina(rutina=rutina,usuario=usuario)
+        usuarioxRutina.save()
+
+    return JsonResponse({"msg": "rutina agregada"}, status=200)
+
+
+
