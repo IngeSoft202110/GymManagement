@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from . import forms
 from .models import Usuario, Rutina, Ejercicio, EjercicioXRutina
 from .models import Comentario, Sala, Mensaje, UsuarioxRutina, Like
+
 from django.db.models import Q
 
 def loginView(request):

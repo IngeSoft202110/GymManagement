@@ -97,7 +97,7 @@
                                     </form>
                                 </div>
                             </li>
-                            <div>
+                            <div >
                                 <form action="/crearRutinaView/" method="POST">
                                     {% csrf_token %}
                                     <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
@@ -210,18 +210,14 @@
                                                 </form>
                                             </div>
                                             <div class="col-auto mr-auto">
-                                                <button class="btn btn-primary seguir"
-                                                    data-usuario="{{usuario.usuario}}" data-rutina="{{rut.id}}">Seguir
-                                                    rutina
-                                                </button>
-
+                                                <button class="btn btn-primary seguir" type="button"
+                                                    style="height: 37px;">Dejar de Seguir
+                                                    rutina</button>
                                             </div>
 
                                             <div class="col-auto mr-auto">
-                                                <button class="btn btn-danger like" data-usuario="{{usuario.usuario}}"
-                                                    data-rutina="{{rut.id}}">Me gusta
-                                                    <i class="fa fa-heart"></i>
-                                                </button>
+                                                <button class="btn btn-danger like" type="button">Me gusta <i
+                                                        class="fa fa-heart"></i></button>
 
                                             </div>
 
@@ -231,6 +227,7 @@
                                                     {% csrf_token %}
                                                     <input type="hidden" name="user" value="{{usuario.usuario}}">
                                                     <input type="hidden" name="rutineId" value="{{rut.id}}">
+
                                                     <button type="submit" class="btn btn-success">Ver</button>
                                                 </form>
 
@@ -259,7 +256,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="{% static 'assets/js/script.min.js' %}"></script>
     <script src="{% static 'assets/js/main_view.js' %}"></script>
-
+    <script src="{% static 'assets/js/menu.js' %}"></script>
 </body>
 
 
