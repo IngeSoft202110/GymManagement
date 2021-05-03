@@ -58,6 +58,13 @@ def agregarEjercicioXRutinaView2(request):
     nuevo_ejercicioxrutina.save()
     return render(request, 'agregarEjercicioXRutina.html', {'ejerciciosRutina': getEjercicioXRutina(rutina2), 'usuario': usuario, 'rutina': rutina2, 'ejercicios': getTodosEjercicios()})
 
+def getTodosEjercicios():
+    ejercicios = Ejercicio.objects.all()
+    ejerciciosTodos = set()
+    for ejercicio in ejercicios:
+        ejerciciosTodos.add(ejercicio.nombre)
+    return ejerciciosTodos
+
 def getRutina(idRutina):
     rutinas = Rutina.objects.all()
     for rutina in rutinas:
