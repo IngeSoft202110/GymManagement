@@ -177,7 +177,7 @@
 
                                             <div class="col-auto">
 
-                                                <form method="POST" action="/exercisesList/">
+                                                <form method="POST" action="/exercisesListRutina/">
                                                     {% csrf_token %}
                                                     <input type="hidden" name="user" value="{{usuario.usuario}}">
                                                     <input type="hidden" name="rutineId" value="{{rut.id}}">

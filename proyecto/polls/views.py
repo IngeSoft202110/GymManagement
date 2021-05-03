@@ -155,6 +155,18 @@ def exercisesList(request):
 
     return render(request, 'exercisesList.html', {'usuario': usuario, 'ejercicios': ejercicios, 'rutina': rutina})
 
+
+def exercisesListRutina(request):
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
+    usuario = checkUser(request.POST['user'])
+    ejercicios = EjercicioXRutina.objects.filter(
+        Q(rutina=request.POST['rutineId']))
+    rutina = Rutina.objects.get(id=request.POST['rutineId'])
+
+    return render(request, 'exercisesListRutina.html', {'usuario': usuario, 'ejercicios': ejercicios, 'rutina': rutina})
+
+
 def comentar(request):
     if not checkPostRequest(request):
         return render(request, 'login.html')
