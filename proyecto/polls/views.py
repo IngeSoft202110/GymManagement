@@ -26,6 +26,9 @@ def exerciseView(request):
 def exercisesListView(request):
     return render(request, 'exercisesList.html')
 
+def exercisesListRutinaView(request):
+    return render(request, 'exercisesListRutina.html')
+
 def crearRutinaView( request ):
     usuario = checkUser(request.POST['usr'])
     if not usuario:
@@ -161,6 +164,18 @@ def exercisesList(request):
 
     return render(request, 'exercisesList.html', {'usuario': usuario, 'ejercicios': ejercicios, 'rutina': rutina})
 
+
+def exercisesListRutina(request):
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
+    usuario = checkUser(request.POST['user'])
+    ejercicios = EjercicioXRutina.objects.filter(
+        Q(rutina=request.POST['rutineId']))
+    rutina = Rutina.objects.get(id=request.POST['rutineId'])
+
+    return render(request, 'exercisesListRutina.html', {'usuario': usuario, 'ejercicios': ejercicios, 'rutina': rutina})
+
+
 def comentar(request):
     if not checkPostRequest(request):
         return render(request, 'login.html')
@@ -194,6 +209,15 @@ def checkPostRequest(request):
     if not request.POST:
         return False
     return True
+
+def guardarRutinaView(request):
+    usuario= checkUser(request.POST['usuario'])
+    usuarioxrutina = UsuarioxRutina.objects.all()
+    listado = set()
+    for rutina in usuarioxrutina:
+        if rutina.usuario == usuario:
+            listado.add(rutina.rutina)
+    return render(request, 'guardarRutina.html', {'rutinas':listado, 'usuario':usuario})
 
 def irSala(request):
     print(request.POST)

@@ -9,13 +9,18 @@ urlpatterns = [
     path('mainView/',views.mainView,name='mainView'),
     path('exerciseView/',views.exerciseView,name='exercises'),
     path('exercisesListView/',views.exercisesListView,name='exercisesList'),
+
     path('crearRutinaView/',views.crearRutinaView,name = 'crearRutina'),
     path('agregarEjercicioXRutinaView/',views.agregarEjercicioXRutinaView, name = 'agregarEjercicioXRutina'),
     path('agregarEjercicioXRutinaView2/',views.agregarEjercicioXRutinaView2, name ='agregarEjercicioXRutina2'), 
+    path('guardarRutinaView/', views.guardarRutinaView,name='guardarRutina'),
+    path('exercisesListRutinaView/',views.exercisesListRutinaView,name='exercisesListRutina'),
+  
     #Actions
     path('register/',views.register,name='register'),
     path('main_view/',views.main_view,name='main_view'),
     path('filtrarRutina/',views.filtrarRutina,name='filtrarRutina'),
+    path('exercisesListRutina/',views.exercisesListRutina,name='exercisesListRutina'),
     path('exercisesList/',views.exercisesList,name='exercisesList'),
     path('verComentarios/',views.verComentarios,name='verComentarios'),
     path('verChats/',views.verChats,name='verChats'),
