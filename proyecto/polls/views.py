@@ -26,6 +26,9 @@ def exerciseView(request):
 def exercisesListView(request):
     return render(request, 'exercisesList.html')
 
+def exercisesListRutinaView(request):
+    return render(request, 'exercisesListRutina.html')
+
 def crearRutinaView( request ):
     usuario = checkUser(request.POST['usr'])
     if not usuario:

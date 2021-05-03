@@ -10,6 +10,7 @@ urlpatterns = [
     path('exerciseView/',views.exerciseView,name='exercises'),
     path('exercisesListView/',views.exercisesListView,name='exercisesList'),
     path('guardarRutinaView/', views.guardarRutinaView,name='guardarRutina'),
+    path('exercisesListRutinaView/',views.exercisesListRutinaView,name='exercisesListRutina'),
     #Actions
     path('register/',views.register,name='register'),
     path('main_view/',views.main_view,name='main_view'),
