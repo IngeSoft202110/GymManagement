@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Conversaciones</title>
+    <title>main view</title>
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -44,7 +44,7 @@
                                     class="fas fa-user"></i><span>Perfil</span></button></li>
                     </form>
 
-                    <form action="#" method="POST">
+                    <form action="/guardarRutinaView/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="usuario" value="{{usuario.usuario}}">
                         <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
@@ -97,6 +97,13 @@
                                     </form>
                                 </div>
                             </li>
+                            <div >
+                                <form action="/crearRutinaView/" method="POST">
+                                    {% csrf_token %}
+                                    <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
+                                    <button type="submit">Crear Rutina</button>
+                                </form>
+                            </div>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
@@ -105,9 +112,14 @@
                                         </span></a>
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
                                         <a class="dropdown-item" role="presentation" href="#"><i
-                                                class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Perfil</a>
+                                                class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Perfil</a><a
+                                            class="dropdown-item" role="presentation" href="#"><i
+                                                class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Configuración</a>
+                                        <a class="dropdown-item" role="presentation" href="#"><i
+                                                class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Actividad
+                                        </a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation"
-                                            href="/"><i
+                                            href="#"><i
                                                 class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Salir</a>
                                     </div>
                                 </div>
@@ -115,46 +127,138 @@
                         </ul>
                     </div>
                 </nav>
-                <div class="container-fluid" style="width: 400;">
+                <div class="container-fluid">
                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                        <h3 class="text-dark mb-0">Conversaciones</h3>
+                        <h3 class="text-dark mb-0">Rutinas recomendadas</h3>
+
                     </div>
-                    <article></article>
+                    <div>
+                        <form action="/filtrarRutina/" method="POST" id="form_clasificacion">
+
+                            {% csrf_token %}
+                            <select class="form-select" name="clasificacion" id="clasificacion" required>
+                                <optgroup label="filtrar por">
+                                    <option value="todas">Seleccionar categoría</option>
+                                    <option value="todas">Todas</option>
+                                    {%for tipo in clasificacion%}
+                                    <option value={{tipo}}>{{tipo}}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            </select>
+
+                            <select class="form-select" name="sitio" id="sitio" required>
+                                <optgroup label="filtrar por sitio"></optgroup>
+                                <option value="">Seleccionar sitio</option>
+                                <option value="CASA">Casa <i class="bi bi-house-door-fill"></i></option>
+                                <option value="GIMNASIO">Gimnasio </option>
+                                </optgroup>
+                            </select>
+                            <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
+                            <button class="btn btn-success py-0" type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+
+                    </div>
                     <!-- Start: Chart -->
-                    <div class="row justify-content-md-center">
-                        {% for sala in salas %}
+                    {%for rut in rutinas%}
+                    <div class=" d-flex justify-content-center">
+                        <div class="col-lg-12 col-xl-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center"
+                                    style="margin: 0px;">
+                                    <h6 class="text-primary font-weight-bold m-0"> Clasificación: {{rut.clasificacion}}
+                                    </h6>
 
-                        <div class="col-md-3">
-                            <p style="width: 263px;">Conversación con :<a href="">{{sala.usuario2}}</a></p>
+                                    <h6 class="text-primary font-weight-bold m-0">Dificultad: {{ rut.dificultad }} </a>
+                                    </h6>
+                                    <h6 class="text-primary font-weight-bold m-0">Creada por <a
+                                            href="#">{{rut.usuario.usuario}}</a> </h6>
+                                </div>
+
+                                <div class="text-center rutina">
+                                    {% if rut.genero == 'M' %}
+                                    <p><b>Recomendado para:</b> Hombres</p>
+                                    {% endif %}
+                                    {% if rut.genero == 'F' %}
+                                    <p><b>Recomendado para:</b> Mujeres</p>
+                                    {% endif %}
+                                    {% if rut.genero == 'A' %}
+                                    <p><b>Recomendado para:</b> Hombres y mujeres</p>
+                                    {% endif %}
+                                    <p><b>Sitio recomendado:</b> {{rut.sitio}} <span class="glyphicon glyphicon-home"
+                                            aria-hidden="true"></span> </p>
+
+                                    <p style="height: 104px;"><b>Descripción:</b> {{rut.descripcion}}</p>
+
+                                    <textarea class="comentario" placeholder="Comenta aquí"></textarea>
+                                    {% csrf_token %}
+                                    <div class="card-body">
+                                        <div class="row">
+
+
+                                            <div class="col-auto mr-auto">
+                                                <button class="btn btn-primary comentar"
+                                                    data-usuario="{{usuario.usuario}}"
+                                                    data-rutina="{{rut.id}}">Comentar</button>
+                                            </div>
+                                            <div class="col-auto mr-auto">
+                                                <form action="/verComentarios/" method="post">
+                                                    <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                                                    <input type="hidden" name="rutina" value="{{rut.id}}">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-primary">Ver
+                                                        comentarios</button>
+                                                </form>
+                                            </div>
+                                            <div class="col-auto mr-auto">
+                                                <button class="btn btn-primary seguir" type="button"
+                                                    style="height: 37px;">Dejar de Seguir
+                                                    rutina</button>
+                                            </div>
+
+                                            <div class="col-auto mr-auto">
+                                                <button class="btn btn-danger like" type="button">Me gusta <i
+                                                        class="fa fa-heart"></i></button>
+
+                                            </div>
+
+                                            <div class="col-auto">
+
+                                                <form method="POST" action="/exercisesList/">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="user" value="{{usuario.usuario}}">
+                                                    <input type="hidden" name="rutineId" value="{{rut.id}}">
+
+                                                    <button type="submit" class="btn btn-success">Ver</button>
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <form action="/sala/" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" name="sala" value="{{sala.id}}">
-                                <input type="hidden" name="usuario" value="{{usuario.usuario}}">
-                                <button class="btn btn-primary" type="submit" style="width: 40;">
-                                    Ir a conversación
-                                </button>
-                            </form>
-                        </div>
-
-
-                        {% endfor %}
                     </div>
+                    {% endfor %}
                     <!-- End: Chart -->
                 </div>
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © Brand 2021</span></div>
+                    <div class="text-center my-auto copyright"><span>GymManagement</span></div>
                 </div>
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="{% static 'assets/js/script.min.js' %}"></script>
+    <script src="{% static 'assets/js/main_view.js' %}"></script>
+    <script src="{% static 'assets/js/menu.js' %}"></script>
 </body>
+
+
 
 </html>
