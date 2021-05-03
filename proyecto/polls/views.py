@@ -200,7 +200,7 @@ def seguirRutina(request):
     print(usuario)
     print(rutina)
     buscarUsuarioXRutina = UsuarioxRutina.objects.filter(
-        Q(usuario=usuario) | Q(rutina=rutina))
+        Q(usuario=usuario) & Q(rutina=rutina))
     print(buscarUsuarioXRutina)
     if not buscarUsuarioXRutina:
         usuarioxRutina = UsuarioxRutina(rutina=rutina, usuario=usuario)
@@ -217,8 +217,6 @@ def like(request):
     buscarLike = Like.objects.filter(
         Q(usuario=usuario) | Q(rutina=rutina))
     print(buscarLike)
-    print("*******************************************")
-
     if not buscarLike:
         rutina.numeroLikes+=1
         rutina.save()
