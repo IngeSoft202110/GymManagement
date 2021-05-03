@@ -186,6 +186,15 @@ def checkPostRequest(request):
         return False
     return True
 
+def guardarRutinaView(request):
+    usuario= checkUser(request.POST['usuario'])
+    usuarioxrutina = UsuarioxRutina.objects.all()
+    listado = set()
+    for rutina in usuarioxrutina:
+        if rutina.usuario == usuario:
+            listado.add(rutina.rutina)
+    return render(request, 'guardarRutina.html', {'rutinas':listado, 'usuario':usuario})
+
 def irSala(request):
     print(request.POST)
     usuario = checkUser(request.POST['usuario'])

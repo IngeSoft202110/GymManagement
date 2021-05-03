@@ -189,17 +189,7 @@
 
                                     <p style="height: 104px;"><b>Descripción:</b> {{rut.descripcion}}</p>
 
-                                    <textarea class="comentario" placeholder="Comenta aquí"></textarea>
-                                    {% csrf_token %}
-                                    <div class="card-body">
-                                        <div class="row">
-
-
-                                            <div class="col-auto mr-auto">
-                                                <button class="btn btn-primary comentar"
-                                                    data-usuario="{{usuario.usuario}}"
-                                                    data-rutina="{{rut.id}}">Comentar</button>
-                                            </div>
+                                    
                                             <div class="col-auto mr-auto">
                                                 <form action="/verComentarios/" method="post">
                                                     <input type="hidden" name="usuario" value="{{usuario.usuario}}">
@@ -215,11 +205,6 @@
                                                     rutina</button>
                                             </div>
 
-                                            <div class="col-auto mr-auto">
-                                                <button class="btn btn-danger like" type="button">Me gusta <i
-                                                        class="fa fa-heart"></i></button>
-
-                                            </div>
 
                                             <div class="col-auto">
 
@@ -228,7 +213,7 @@
                                                     <input type="hidden" name="user" value="{{usuario.usuario}}">
                                                     <input type="hidden" name="rutineId" value="{{rut.id}}">
 
-                                                    <button type="submit" class="btn btn-success">Ver</button>
+                                                    <button type="submit" class="btn btn-success">Realizado</button>
                                                 </form>
 
 
