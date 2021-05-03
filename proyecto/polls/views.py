@@ -35,6 +35,8 @@ def crearRutinaView( request ):
         return render(request, 'login.html', context={'msg': "Usuario no existente"})
     return render(request, 'crearRutina.html', {'usuario': usuario, 'clasificacion': getClasificationsOfRutines()})
 
+
+
 def agregarEjercicioXRutinaView(request):
     usuario = checkUser(request.POST['usr'])
     if request.method == 'POST':
@@ -58,6 +60,13 @@ def agregarEjercicioXRutinaView2(request):
         rutina=rutina2, ejercicio=tipoEjercicio)
     nuevo_ejercicioxrutina.save()
     return render(request, 'agregarEjercicioXRutina.html', {'ejerciciosRutina': getEjercicioXRutina(rutina2), 'usuario': usuario, 'rutina': rutina2, 'ejercicios': getTodosEjercicios()})
+
+def getTodosEjercicios():
+    ejercicios = Ejercicio.objects.all()
+    ejerciciosTodos = set()
+    for ejercicio in ejercicios:
+        ejerciciosTodos.add(ejercicio.nombre)
+    return ejerciciosTodos
 
 def getRutina(idRutina):
     rutinas = Rutina.objects.all()
@@ -224,7 +233,7 @@ def seguirRutina(request):
     print(usuario)
     print(rutina)
     buscarUsuarioXRutina = UsuarioxRutina.objects.filter(
-        Q(usuario=usuario) | Q(rutina=rutina))
+        Q(usuario=usuario) & Q(rutina=rutina))
     print(buscarUsuarioXRutina)
     if not buscarUsuarioXRutina:
         usuarioxRutina = UsuarioxRutina(rutina=rutina, usuario=usuario)
@@ -241,8 +250,6 @@ def like(request):
     buscarLike = Like.objects.filter(
         Q(usuario=usuario) | Q(rutina=rutina))
     print(buscarLike)
-    print("*******************************************")
-
     if not buscarLike:
         rutina.numeroLikes+=1
         rutina.save()

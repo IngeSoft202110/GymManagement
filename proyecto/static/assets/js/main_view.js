@@ -40,6 +40,7 @@ $(document ).ready(() => {
             method: "POST",
             success: () => {
                 console.log("segui la rutina");
+                alert("segui la rutina");
             }
         });
     });
