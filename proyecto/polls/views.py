@@ -185,14 +185,6 @@ def guardarRutinaView(request):
             listado.add(rutina.rutina)
     return render(request, 'guardarRutina.html', {'rutinas':listado, 'usuario':usuario})
 
-def exercisesList(request):
-    if not checkPostRequest(request):
-        return render(request, 'login.html')
-    usuario= checkUser(request.POST['user'])
-    ejercicios= EjercicioXRutina.objects.filter(Q(rutina=request.POST['rutineId']))
-    rutina =Rutina.objects.get(id=request.POST['rutineId'])
- 
-    return render(request, 'exercisesList.html',{'usuario':usuario,'ejercicios':ejercicios, 'rutina':rutina})
 
 def irSala(request):
     print(request.POST)
