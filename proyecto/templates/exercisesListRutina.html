@@ -151,8 +151,10 @@
                                             <p><b>Número de repeticiones recomendado: </b> {{ejercicio.ejercicio.repeticiones }}</p>
                                             <p><b>Descripción: </b> {{ejercicio.ejercicio.descripcion }}</p>
                                             <div class="col-auto mr-auto">
-                                                <button class="btn btn-primary seguir" type="button"
-                                                    style="height: 37px;">Completado Ejercicio</button>
+                                                <button class="btn btn-primary guardarHistorial" type="submit"
+                                                    data-usuario="{{usuario.usuario}}" data-ejercicio="{{ejercicio.id}}">ejercicio
+                                                    realizado
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -185,6 +187,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="{% static 'assets/js/script.min.js' %}"></script>
+    <script src="{% static 'assets/js/exercisesListView.js' %}"></script>
 </body>
 
 </html>

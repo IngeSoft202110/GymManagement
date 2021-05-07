@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
-from .models import Usuario, Rutina, Ejercicio, EjercicioXRutina
+from .models import Usuario, Rutina, Ejercicio, EjercicioXRutina, Historial
 from .models import Comentario, Sala, Mensaje, UsuarioxRutina, Like
 
 from django.db.models import Q
@@ -258,3 +258,31 @@ def like(request):
         
 
     return JsonResponse({"msg": "like agregado"}, status=200)
+
+
+def dejarSeguirRutina(request):
+    usuario = checkUser(request.POST['usuario'])
+    rutina = Rutina.objects.get(id=request.POST["rutina"])
+    buscarUsuarioXRutina = UsuarioxRutina.objects.filter(Q(usuario=usuario.id) & Q(rutina=rutina.id))
+
+    if buscarUsuarioXRutina:
+        print("esto aquiiiiiiiiiiiiiii")
+        buscarUsuarioXRutina.delete()
+    
+    usuarioxrutina = UsuarioxRutina.objects.all()
+    listado = set()
+    for rutina in usuarioxrutina:
+        if rutina.usuario == usuario:
+            listado.add(rutina.rutina)
+
+    return render(request, 'guardarRutina.html', {'rutinas':listado, 'usuario':usuario})
+
+def guardarHistorial(request):
+    usuario = checkUser(request.POST['usuario'])
+    ejercicio = EjercicioXRutina.objects.get(id=request.POST["ejercicio"])
+    historial = Historial(usuario=usuario, ejercicio=ejercicio)
+    historial.save()
+    return JsonResponse({"msg": "rutina agregada"}, status=200)
+
+
+

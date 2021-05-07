@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Usuario, Rutina, Comentario, Ejercicio, UsuarioxRutina
-from .models import  EjercicioXRutina, Sala, Mensaje, Like
+from .models import  EjercicioXRutina, Sala, Mensaje, Like, Historial
 
 # Register your models here.
 
@@ -39,3 +39,8 @@ class MensajeAdmin(admin.ModelAdmin):
 @admin.register(UsuarioxRutina)
 class UsuarioxRutinaAdmin(admin.ModelAdmin): 
     list_display = ("id", "usuario" ,"rutina")
+
+@admin.register(Historial)
+class UsuarioxRutinaAdmin(admin.ModelAdmin): 
+    list_display = ("id", "usuario" ,"ejercicio")
+
