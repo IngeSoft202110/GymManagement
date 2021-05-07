@@ -120,8 +120,9 @@ class Mensaje( models.Model):
 class Historial(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE )
     ejercicio = models.ForeignKey(EjercicioXRutina, on_delete=models.CASCADE)
+    fecha = models.DateTimeField(default=datetime.datetime.now)
 
     def _str_( self):
-        return f"{self.id}, {self.usuario} ,{self.ejercicio}"
+        return f"{self.id}, {self.usuario} ,{self.ejercicio},{self.fecha}"
 
 

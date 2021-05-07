@@ -42,5 +42,5 @@ class UsuarioxRutinaAdmin(admin.ModelAdmin):
 
 @admin.register(Historial)
 class UsuarioxRutinaAdmin(admin.ModelAdmin): 
-    list_display = ("id", "usuario" ,"ejercicio")
+    list_display = ("id", "usuario" ,"ejercicio", "fecha")
 
