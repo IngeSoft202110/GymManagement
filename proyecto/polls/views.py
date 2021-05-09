@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
-from .models import Usuario, Rutina, Ejercicio, EjercicioXRutina
+from .models import Usuario, Rutina, Ejercicio, EjercicioXRutina, Historial
 from .models import Comentario, Sala, Mensaje, UsuarioxRutina, Like
 
 from django.db.models import Q
@@ -25,6 +25,9 @@ def exerciseView(request):
 
 def exercisesListView(request):
     return render(request, 'exercisesList.html')
+
+def exercisesListRutinaView(request):
+    return render(request, 'exercisesListRutina.html')
 
 def crearRutinaView( request ):
     usuario = checkUser(request.POST['usr'])
@@ -161,6 +164,18 @@ def exercisesList(request):
 
     return render(request, 'exercisesList.html', {'usuario': usuario, 'ejercicios': ejercicios, 'rutina': rutina})
 
+
+def exercisesListRutina(request):
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
+    usuario = checkUser(request.POST['user'])
+    ejercicios = EjercicioXRutina.objects.filter(
+        Q(rutina=request.POST['rutineId']))
+    rutina = Rutina.objects.get(id=request.POST['rutineId'])
+
+    return render(request, 'exercisesListRutina.html', {'usuario': usuario, 'ejercicios': ejercicios, 'rutina': rutina})
+
+
 def comentar(request):
     if not checkPostRequest(request):
         return render(request, 'login.html')
@@ -194,6 +209,15 @@ def checkPostRequest(request):
     if not request.POST:
         return False
     return True
+
+def guardarRutinaView(request):
+    usuario= checkUser(request.POST['usuario'])
+    usuarioxrutina = UsuarioxRutina.objects.all()
+    listado = set()
+    for rutina in usuarioxrutina:
+        if rutina.usuario == usuario:
+            listado.add(rutina.rutina)
+    return render(request, 'guardarRutina.html', {'rutinas':listado, 'usuario':usuario})
 
 def irSala(request):
     print(request.POST)
@@ -234,3 +258,31 @@ def like(request):
         
 
     return JsonResponse({"msg": "like agregado"}, status=200)
+
+
+def dejarSeguirRutina(request):
+    usuario = checkUser(request.POST['usuario'])
+    rutina = Rutina.objects.get(id=request.POST["rutina"])
+    buscarUsuarioXRutina = UsuarioxRutina.objects.filter(Q(usuario=usuario.id) & Q(rutina=rutina.id))
+
+    if buscarUsuarioXRutina:
+        print("esto aquiiiiiiiiiiiiiii")
+        buscarUsuarioXRutina.delete()
+    
+    usuarioxrutina = UsuarioxRutina.objects.all()
+    listado = set()
+    for rutina in usuarioxrutina:
+        if rutina.usuario == usuario:
+            listado.add(rutina.rutina)
+
+    return render(request, 'guardarRutina.html', {'rutinas':listado, 'usuario':usuario})
+
+def guardarHistorial(request):
+    usuario = checkUser(request.POST['usuario'])
+    ejercicio = EjercicioXRutina.objects.get(id=request.POST["ejercicio"])
+    historial = Historial(usuario=usuario, ejercicio=ejercicio)
+    historial.save()
+    return JsonResponse({"msg": "rutina agregada"}, status=200)
+
+
+

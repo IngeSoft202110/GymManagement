@@ -44,7 +44,7 @@
                                     class="fas fa-user"></i><span>Perfil</span></button></li>
                     </form>
 
-                    <form action="#" method="POST">
+                    <form action="/guardarRutinaView/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="usuario" value="{{usuario.usuario}}">
                         <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
@@ -63,6 +63,13 @@
                         <input type="hidden" name="usuario" value="{{usuario.usuario}}">
                         <li class="nav-item" role="presentation"> <button class="btn btn-primary" type="submit"><i
                                     class="far fa-address-book"></i><span>Conversaciones</span></button> </li>
+                    </form>
+                    
+                    <form action="/crearRutinaView/" method="POST">
+                        {% csrf_token %}
+                        <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
+                            class="fas fa-table"></i><span>Crear rutina</span></button></li>
                     </form>
                 </ul>
                 <div class="text-center d-none d-md-inline">
