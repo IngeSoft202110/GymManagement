@@ -33,9 +33,17 @@ def crearRutinaView( request ):
     usuario = checkUser(request.POST['usr'])
     if not usuario:
         return render(request, 'login.html', context={'msg': "Usuario no existente"})
-    return render(request, 'crearRutina.html', {'usuario': usuario, 'clasificacion': getClasificationsOfRutines()})
+    return render(request, 'crearRutina.html', {'usuario': usuario, 'clasificacion': getAllClasifications()})
 
-
+def getAllClasifications():
+    allClasifications = set()
+    allClasifications.add('Pierna')
+    allClasifications.add('Brazo')
+    allClasifications.add('Hombro')
+    allClasifications.add('Espalda')
+    allClasifications.add('Abdomen')
+    allClasifications.add('Cardio')
+    return allClasifications
 
 def agregarEjercicioXRutinaView(request):
     usuario = checkUser(request.POST['usr'])
@@ -87,7 +95,7 @@ def getEjercicioXRutina(rutina):
     ejerciciosxrutinasTodos = set()
     for ejerciciosxrutina in ejerciciosxrutinas:
         if ejerciciosxrutina.rutina == rutina:
-            ejerciciosxrutinasTodos.add(ejerciciosxrutina.ejercicio.nombre)
+            ejerciciosxrutinasTodos.add(ejerciciosxrutina.ejercicio)
     return ejerciciosxrutinasTodos
 
 def register(request):
