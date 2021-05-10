@@ -20,62 +20,64 @@
 <body id="page-top">
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-            <div class="container-fluid d-flex flex-column p-0">
-                <a href="#">
-                    <img class="img-responsive" alt="Responsive image" src="{% static 'assets/img/GymManagement.png' %}"
-                        style="width: 160px; height: 64px;">
-                </a>
-
-                <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <form action="/main_view/" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
-                        <li class="nav-item" role="presentation">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="far fa-user-circle"></i>
-                                <span>Recomendaciones</span>
-                            </button>
-                        </li>
-                    </form>
-                    <form action="/main_view/" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
-                        <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
-                                    class="fas fa-user"></i><span>Perfil</span></button></li>
-                    </form>
-
-                    <form action="/guardarRutinaView/" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
-                        <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
-                                    class="fas fa-table"></i><span>Mis rutinas</span></button></li>
-                    </form>
-
-                    <form action="#" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
-                        <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
-                                    class="fas fa-tachometer-alt"></i><span>Mi progreso</span></button></li>
-                    </form>
-
-                    <form action="/verChats/" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
-                        <li class="nav-item" role="presentation"> <button class="btn btn-primary" type="submit"><i
-                                    class="far fa-address-book"></i><span>Conversaciones</span></button> </li>
-                    </form>
-
-                    <form action="/crearRutinaView/" method="POST">
-                        {% csrf_token %}
-                        <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
-                        <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
-                                    class="fas fa-table"></i><span>Crear rutina</span></button></li>
-                    </form>
-                </ul>
-                <div class="text-center d-none d-md-inline">
-                    <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0">
+                    <a href="#">
+                        <img class="img-responsive" alt="Responsive image" src="{% static 'assets/img/GymManagement.png' %}"
+                            style="width: 160px; height: 64px;">
+                    </a>
+    
+                    <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                        <form action="/main_view/" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                            <li class="nav-item" role="presentation">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="far fa-user-circle"></i>
+                                    <span>Recomendaciones</span>
+                                </button>
+                            </li>
+                        </form>
+                        <form action="/main_view/" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                            <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
+                                        class="fas fa-user"></i><span>Perfil</span></button></li>
+                        </form>
+    
+                        <form action="/guardarRutinaView/" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                            <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
+                                        class="fas fa-table"></i><span>Mis rutinas</span></button></li>
+                        </form>
+    
+                        <form action="/verProgreso/" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                            <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
+                                        class="fas fa-tachometer-alt"></i><span>Mi progreso</span></button></li>
+                        </form>
+    
+                        <form action="/verChats/" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                            <li class="nav-item" role="presentation"> <button class="btn btn-primary" type="submit"><i
+                                        class="far fa-address-book"></i><span>Conversaciones</span></button> </li>
+                        </form>
+    
+                        <form action="/crearRutinaView/" method="POST">
+                            {% csrf_token %}
+                            <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
+                            <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
+                                        class="fas fa-table"></i><span>Crear rutina</span></button></li>
+                        </form>
+                    </ul>
+                    <div class="text-center d-none d-md-inline">
+                        <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+                    </div>
                 </div>
-            </div>
+            </nav>
         </nav>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
