@@ -26,6 +26,7 @@ urlpatterns = [
     path('verChats/',views.verChats,name='verChats'),
     path('sala/', views.irSala, name='sala'),
     path('dejarSeguirRutina/', views.dejarSeguirRutina, name='dejarSeguirRutina'),
+    path('verProgreso/', views.verProgreso, name='verProgreso'),
 
 
     #Ajax

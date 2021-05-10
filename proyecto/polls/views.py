@@ -4,7 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 from . import forms
 from .models import Usuario, Rutina, Ejercicio, EjercicioXRutina, Historial
 from .models import Comentario, Sala, Mensaje, UsuarioxRutina, Like
-
+from json import dumps
+import datetime
 from django.db.models import Q
 
 def loginView(request):
@@ -220,6 +221,8 @@ def guardarRutinaView(request):
     return render(request, 'guardarRutina.html', {'rutinas':listado, 'usuario':usuario})
 
 def irSala(request):
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
     print(request.POST)
     usuario = checkUser(request.POST['usuario'])
     messages = Mensaje.objects.filter(sala=request.POST['sala'])
@@ -266,7 +269,6 @@ def dejarSeguirRutina(request):
     buscarUsuarioXRutina = UsuarioxRutina.objects.filter(Q(usuario=usuario.id) & Q(rutina=rutina.id))
 
     if buscarUsuarioXRutina:
-        print("esto aquiiiiiiiiiiiiiii")
         buscarUsuarioXRutina.delete()
     
     usuarioxrutina = UsuarioxRutina.objects.all()
@@ -284,5 +286,31 @@ def guardarHistorial(request):
     historial.save()
     return JsonResponse({"msg": "rutina agregada"}, status=200)
 
+def verProgreso(request):
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
+    usuario = checkUser(request.POST['usuario'])
+    historial =  Historial.objects.filter(Q(usuario=usuario))
 
+    now = datetime.datetime.now()
+    format = now.strftime('%d,%m,%Y')
+    dias= []
+    cantidadEjercicios=[]
+    for i in range(4,-1,-1):
+        past = now - datetime.timedelta(days=i)
+        dias.append(past.strftime('%d-%m-%Y'))
+        print(past)
+        contador=0
+        for h in historial:
+            #print(h.fecha)
+            if h.fecha.strftime('%d,%m,%Y')==past.strftime('%d,%m,%Y'):
+                contador+=1
+        cantidadEjercicios.append(contador)
+  
+    data = {
+        'dias': dias,
+        'cantidad':cantidadEjercicios
+    }
+    dataJSON = dumps(data)
+    return render(request, 'progreso.html',{'usuario':usuario,'ejercicios':historial, 'datos' :dataJSON})
 
