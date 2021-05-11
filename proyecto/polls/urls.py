@@ -25,9 +25,13 @@ urlpatterns = [
     path('verComentarios/',views.verComentarios,name='verComentarios'),
     path('verChats/',views.verChats,name='verChats'),
     path('sala/', views.irSala, name='sala'),
+    path('dejarSeguirRutina/', views.dejarSeguirRutina, name='dejarSeguirRutina'),
+    path('verProgreso/', views.verProgreso, name='verProgreso'),
+
 
     #Ajax
     path('comentar/', views.comentar,name="comentar"),
     path('seguirRutina/', views.seguirRutina,name="seguirRutina"),
     path( 'like/' , views.like , name = "like" ),
+    path( 'guardarHistorial/' , views.guardarHistorial , name = "guardarHistorial" ),
 ]
