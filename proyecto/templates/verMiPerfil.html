@@ -37,7 +37,7 @@
                             </button>
                         </li>
                     </form>
-                    <form action="/MiPerfilView/" method="POST">
+                    <form action="/main_view/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="usuario" value="{{usuario.usuario}}">
                         <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
@@ -131,35 +131,74 @@
                 </nav>
                 <div class="container-fluid">
                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                        <h3 class="text-dark mb-0">Rutinas recomendadas</h3>
-
+                        <h2 class="text-dark mb-0"> <b>Perfil</b></h2>
                     </div>
-                    <div>
-                        <form action="/filtrarRutina/" method="POST" id="form_clasificacion">
-
-                            {% csrf_token %}
-                            <select class="form-select" name="clasificacion" id="clasificacion" required>
-                                <optgroup label="filtrar por">
-                                    <option value="todas">Seleccionar categoría</option>
-                                    <option value="todas">Todas</option>
-                                    {%for tipo in clasificacion%}
-                                    <option value={{tipo}}>{{tipo}}</option>
-                                    {% endfor %}
-                                </optgroup>
-                            </select>
-
-                            <select class="form-select" name="sitio" id="sitio" required>
-                                <optgroup label="filtrar por sitio"></optgroup>
-                                <option value="">Seleccionar sitio</option>
-                                <option value="CASA">Casa <i class="bi bi-house-door-fill"></i></option>
-                                <option value="GIMNASIO">Gimnasio </option>
-                                </optgroup>
-                            </select>
-                            <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
-                            <button class="btn btn-success py-0" type="submit"><i class="fas fa-search"></i></button>
-                        </form>
-
+                    <form class="user" action="/actualizarPerfil/" method="POST" >
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <h3> <b>Nickname: </b> {{usuario.usuario}}</h3>
+                            </div>
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <h3> <b>Fecha de nacimiento: </b> {{usuario.fecha_nacimiento}}</h3>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <h3> <b>Nombre: </b>
+                                    <input required class="form-control form-control-user" type="text" id="nombre"
+                                    value="{{usuario.nombre}}" name="nombre">
+                                </h3>
+                            </div>
+                            <div class="col-sm-6">
+                                <h3> <b>Apellido: </b>
+                                    <input required class="form-control form-control-user" type="text" id="apellido"
+                                    value="{{usuario.apellido}}" name="apellido">
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <h3> <b>Correo: </b>
+                                    <input required class="form-control form-control-user" type="text" id="correo"
+                                        value="{{usuario.correo}}" name="correo">
+                                </h3>
+                            </div>
+                            <div class="col-sm-6">
+                                <h3><b>Genero: </b>
+                                    <select required class="form-control " name="genero" id="genero">
+                                        {% if usuario.genero == 'M' %}
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Femenino</option>
+                                        {% endif %}
+                                        {% if usuario.genero == 'F' %}
+                                        <option value="F">Femenino</option>
+                                        <option value="M">Masculino</option>
+                                        {% endif %}
+                                    </select>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <h3> <b>Contraseña: </b>
+                                    <input required class="form-control form-control-user" type="password" id="clave"
+                                        placeholder="" name="clave">
+                                </h3>
+                            </div>
+                        </div>
+                        <p></p>
+                        <input hidden name="usuario" id="usuario" value="{{usuario.usuario}}">
+                        <button class="btn btn-primary btn-block text-white btn-user" type="submit">Actualizar
+                            datos</button>
+                        <hr>
+                        <hr>
+                    </form>
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-dark mb-0"> <b>Mis rutinas creadas</b></h2>
                     </div>
+                </div>
+                <div class="container-fluid">
                     <!-- Start: Chart -->
                     {%for rut in rutinas%}
                     <div class=" d-flex justify-content-center">
@@ -191,42 +230,15 @@
 
                                     <p style="height: 104px;"><b>Descripción:</b> {{rut.descripcion}}</p>
 
-                                    <textarea class="comentario" placeholder="Comenta aquí"></textarea>
                                     {% csrf_token %}
                                     <div class="card-body">
                                         <div class="row">
-
-
-                                            <div class="col-auto mr-auto">
-                                                <button class="btn btn-primary comentar"
-                                                    data-usuario="{{usuario.usuario}}"
-                                                    data-rutina="{{rut.id}}">Comentar</button>
-                                            </div>
-                                            <div class="col-auto mr-auto">
-                                                <form action="/verComentarios/" method="post">
-                                                    <input type="hidden" name="usuario" value="{{usuario.usuario}}">
-                                                    <input type="hidden" name="rutina" value="{{rut.id}}">
-                                                    {% csrf_token %}
-                                                    <button type="submit" class="btn btn-primary">Ver
-                                                        comentarios</button>
-                                                </form>
-                                            </div>
                                             <div class="col-auto mr-auto">
                                                 <button class="btn btn-primary seguir"
-                                                    data-usuario="{{usuario.usuario}}" data-rutina="{{rut.id}}">Seguir
-                                                    rutina
+                                                    data-usuario="{{usuario.usuario}}" data-rutina="{{rut.id}}">
+                                                    Publicar
                                                 </button>
-
                                             </div>
-
-                                            <div class="col-auto mr-auto">
-                                                <button class="btn btn-danger like" data-usuario="{{usuario.usuario}}"
-                                                    data-rutina="{{rut.id}}">Me gusta
-                                                    <i class="fa fa-heart"></i>
-                                                </button>
-
-                                            </div>
-
                                             <div class="col-auto">
                                                 <form method="POST" action="/exercisesList/">
                                                     {% csrf_token %}
@@ -260,7 +272,5 @@
     <script src="{% static 'assets/js/main_view.js' %}"></script>
 
 </body>
-
-
 
 </html>

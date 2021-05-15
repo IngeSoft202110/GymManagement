@@ -15,6 +15,8 @@ urlpatterns = [
     path('agregarEjercicioXRutinaView2/',views.agregarEjercicioXRutinaView2, name ='agregarEjercicioXRutina2'), 
     path('guardarRutinaView/', views.guardarRutinaView,name='guardarRutina'),
     path('exercisesListRutinaView/',views.exercisesListRutinaView,name='exercisesListRutina'),
+    path('MiPerfilView/', views.miPerfilView, name='miPerfil'),
+    path('actualizarPerfil/', views.actualizarPerfil, name='actualizarPerfil'),
   
     #Actions
     path('register/',views.register,name='register'),
