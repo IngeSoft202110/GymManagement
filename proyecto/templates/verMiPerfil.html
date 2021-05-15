@@ -37,7 +37,7 @@
                             </button>
                         </li>
                     </form>
-                    <form action="/main_view/" method="POST">
+                    <form action="/MiPerfilView/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="usuario" value="{{usuario.usuario}}">
                         <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
@@ -183,7 +183,7 @@
                             <div class="col-sm-6">
                                 <h3> <b>Contraseña: </b>
                                     <input required class="form-control form-control-user" type="password" id="clave"
-                                        placeholder="" name="clave">
+                                        value="{{usuario.clave}}" name="clave">
                                 </h3>
                             </div>
                         </div>
@@ -232,6 +232,7 @@
 
                                     {% csrf_token %}
                                     <div class="card-body">
+                                        <div></div>
                                         <div class="row">
                                             <div class="col-auto mr-auto">
                                                 <button class="btn btn-primary seguir"
