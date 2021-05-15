@@ -37,13 +37,12 @@
                             </button>
                         </li>
                     </form>
-                    <form action="/main_view/" method="POST">
+                    <form action="/MiPerfilView/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="usuario" value="{{usuario.usuario}}">
                         <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
                                     class="fas fa-user"></i><span>Perfil</span></button></li>
                     </form>
-
                     <form action="/guardarRutinaView/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="usuario" value="{{usuario.usuario}}">
@@ -147,7 +146,6 @@
                       <select class="form-control "  name="clasificacion" id="clasificacion" required>
                           <optgroup label="seleccionar clasificacion">
                               <option value="todas">Seleccionar Clasificación</option>
-                              <option value="todas">Todas</option>
                               {%for tipo in clasificacion%}
                               <option value={{tipo}}>{{tipo}}</option>
                               {% endfor %}
