@@ -25,7 +25,6 @@
                     <img class="img-responsive" alt="Responsive image" src="{% static 'assets/img/GymManagement.png' %}"
                         style="width: 160px; height: 64px;">
                 </a>
-
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <form action="/main_view/" method="POST">
                         {% csrf_token %}
@@ -81,11 +80,13 @@
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid">
-                        <form
+                        <form action="/listaUsuarioView/"  method = 'POST' 
                             class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
+                            {% csrf_token %}
+                            <input hidden name="usr" value="{{usuario.usuario}}">
+                            <div class="input-group"><input name="userBuscar" id="userBuscar" class="bg-light form-control border-0 small" type="text"
                                     placeholder="Buscar usuario">
-                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i
+                                <div class="input-group-append"><button class="btn btn-primary py-0" type="input"><i
                                             class="fas fa-search"></i></button></div>
                             </div>
                         </form>
@@ -169,7 +170,6 @@
                                     style="margin: 0px;">
                                     <h6 class="text-primary font-weight-bold m-0"> Clasificación: {{rut.clasificacion}}
                                     </h6>
-
                                     <h6 class="text-primary font-weight-bold m-0">Dificultad: {{ rut.dificultad }} </a>
                                     </h6>
                                     <h6 class="text-primary font-weight-bold m-0">Creada por <a
