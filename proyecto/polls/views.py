@@ -230,20 +230,21 @@ def irSala(request):
     return render(request, 'sala.html', {'sala': request.POST['sala'], 'usuario': usuario, 'messages': messages})
 
 def listaUsuarioView(request):
-    Usuario = request.POST.get('usuario' )
-    ListaUsuario = checkUser(request.POST['user'])
+    usuario = request.POST.get('buscar')
+    busqueda = request.POST.get('userBuscar')
+    #ListaUsuario = checkUser(request.POST['buscar'])
     usuarios = Usuario.objects.all()
-    valor = Usuario.objects.filter(ListaUsuario = Usuario.nombre('user'), Usuario = usuarios.set())
-    Usuario = usuarios.set()
+    #valor = Usuario.objects.filter(ListaUsuario = Usuario.nombre('user'), Usuario = usuarios.set())
+    usuarioEncontrados = set()
     for ListaUsuario in usuarios:
-         if valor >= 0:
-            ListaUsuario = Usuario.find()
-    return render(request, Usuario)
+         if ListaUsuario.nombre.find(busqueda) >= 0:
+             usuarioEncontrados.add(ListaUsuario)
+    return render(request, 'listaUsuarioView.html', {'usuario' : usuario, 'usuarios' : usuarioEncontrados})
 
 def verPerfilUsuarioView(request):
     usuario = checkUser(request.POST['usuario'])
     rutinas = Rutina.objects.all()
-    rutinasCreadas = set()
+    rutinasCreadas = Usuario.set()
     listaUsuarios = usuario.filter(usuario=usuario)
     if usuario in listaUsuarios:
      for rutina in rutinas:

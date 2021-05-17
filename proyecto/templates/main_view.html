@@ -83,9 +83,9 @@
                         <form action="/listaUsuarioView/"  method = 'POST' 
                             class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             {% csrf_token %}
-                            <input hidden name="usr" value="{{usuario.usuario}}">
                             <div class="input-group"><input name="userBuscar" id="userBuscar" class="bg-light form-control border-0 small" type="text"
                                     placeholder="Buscar usuario">
+                                    <input hidden name="usr" value="{{usuario.usuario}}" id = "buscar">
                                 <div class="input-group-append"><button class="btn btn-primary py-0" type="input"><i
                                             class="fas fa-search"></i></button></div>
                             </div>
