@@ -242,15 +242,7 @@ def listaUsuarioView(request):
     return render(request, 'listaUsuarioView.html', {'usuario' : usuario, 'usuarios' : usuarioEncontrados})
 
 def verPerfilUsuarioView(request):
-    usuario = checkUser(request.POST['usuario'])
-    rutinas = Rutina.objects.all()
-    rutinasCreadas = Usuario.set()
-    listaUsuarios = usuario.filter(usuario=usuario)
-    if usuario in listaUsuarios:
-     for rutina in rutinas:
-        if rutina.usuario == usuario:
-            rutinasCreadas.add(rutina)
-    return render(request, 'verPerfilUsuario.html', {'usuario': usuario, 'rutinas': rutinasCreadas})
+    return render(request, 'verPerfilUsuario.html')
 
 def seguirRutina(request):
     print(request.POST)

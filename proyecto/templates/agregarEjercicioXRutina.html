@@ -80,12 +80,14 @@
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                    <div class="container-fluid">
-                        <form
+                <div class="container-fluid">
+                        <form action="/listaUsuarioView/"  method = 'POST' 
                             class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
+                            {% csrf_token %}
+                            <div class="input-group"><input name="userBuscar" id="userBuscar" class="bg-light form-control border-0 small" type="text"
                                     placeholder="Buscar usuario">
-                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i
+                                    <input hidden name="usr" value="{{usuario.usuario}}" id = "buscar">
+                                <div class="input-group-append"><button class="btn btn-primary py-0" type="input"><i
                                             class="fas fa-search"></i></button></div>
                             </div>
                         </form>

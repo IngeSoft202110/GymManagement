@@ -21,63 +21,111 @@
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0">
-            <a href="#">
+                <a href="#">
                     <img class="img-responsive" alt="Responsive image" src="{% static 'assets/img/GymManagement.png' %}"
                         style="width: 160px; height: 64px;">
                 </a>
-                <hr class="sidebar-divider my-0">
+
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Recomendación</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Perfil</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="table.html"><i class="fas fa-table"></i><span>Mis rutinas</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="/login.html"><i class="far fa-user-circle"></i><span>Mi progreso</span></a><a class="nav-link" href="/login.html"><i class="far fa-address-book"></i><span>Conversaciones</span></a></li>
-                    <li class="nav-item"
-                        role="presentation"></li>
+                    <form action="/main_view/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="far fa-user-circle"></i>
+                                <span>Recomendaciones</span>
+                            </button>
+                        </li>
+                    </form>
+                    <form action="/MiPerfilView/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
+                                    class="fas fa-user"></i><span>Perfil</span></button></li>
+                    </form>
+
+                    <form action="/guardarRutinaView/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
+                                    class="fas fa-table"></i><span>Mis rutinas</span></button></li>
+                    </form>
+
+                    <form action="#" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
+                                    class="fas fa-tachometer-alt"></i><span>Mi progreso</span></button></li>
+                    </form>
+
+                    <form action="/verChats/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="usuario" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation"> <button class="btn btn-primary" type="submit"><i
+                                    class="far fa-address-book"></i><span>Conversaciones</span></button> </li>
+                    </form>
+
+                    <form action="/crearRutinaView/" method="POST">
+                        {% csrf_token %}
+                        <input hidden name="usr" id="usr" value="{{usuario.usuario}}">
+                        <li class="nav-item" role="presentation"><button class="btn btn-primary" type="submit"><i
+                                    class="fas fa-table"></i><span>Crear rutina</span></button></li>
+                    </form>
                 </ul>
-                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                <div class="text-center d-none d-md-inline">
+                    <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+                </div>
             </div>
         </nav>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Buscar usuario">
-                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                <div class="container-fluid">
+                        <form action="/listaUsuarioView/"  method = 'POST' 
+                            class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            {% csrf_token %}
+                            <div class="input-group"><input name="userBuscar" id="userBuscar" class="bg-light form-control border-0 small" type="text"
+                                    placeholder="Buscar usuario">
+                                    <input hidden name="usr" value="{{usuario.usuario}}" id = "buscar">
+                                <div class="input-group-append"><button class="btn btn-primary py-0" type="input"><i
+                                            class="fas fa-search"></i></button></div>
                             </div>
-                        </form><button class="btn btn-primary py-0" type="button"></button>
+                        </form>
                         <ul class="nav navbar-nav flex-nowrap ml-auto">
-                            <li class="nav-item dropdown d-sm-none no-arrow" id="Select_filtrado"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-search"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" role="menu" aria-labelledby="searchDropdown">
+                            <li class="nav-item dropdown d-sm-none no-arrow" id="Select_filtrado"><a
+                                    class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false"
+                                    href="#"><i class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" role="menu"
+                                    aria-labelledby="searchDropdown">
                                     <form class="form-inline mr-auto navbar-search w-100">
-                                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                        <div class="input-group"><input class="bg-light form-control border-0 small"
+                                                type="text" placeholder="Search for ...">
+                                            <div class="input-group-append"><button class="btn btn-primary py-0"
+                                                    type="button"><i class="fas fa-search"></i></button></div>
                                         </div>
                                     </form>
                                 </div>
                             </li>
-                            <li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
-                            <li class="nav-item dropdown no-arrow mx-1" role="presentation">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"></a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in" role="menu">
-                                        <h6 class="dropdown-header">alerts center</h6>
-                                        <a class="d-flex align-items-center dropdown-item" href="#">
-                                            <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="/assets/img/avatars/avatar4.jpeg?h=fefb30b61c8459a66bd338b7d790c3d5">
-                                                <div class="bg-success status-indicator"></div>
-                                            </div>
-
-                                        </a><a class="text-center dropdown-item small text-gray-500" href="#">Show All Alerts</a></div>
-                                </div>
-                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
-                            </li>
+                            <div>
+                            </div>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Usuario</span></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"
-                                        role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a>
-                                        <a
-                                            class="dropdown-item" role="presentation" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Activity log</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a></div>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
+                                        data-toggle="dropdown" aria-expanded="false" href="#"><span
+                                            class="d-none d-lg-inline mr-2 text-gray-600 small">{{usuario.usuario}}
+                                        </span></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
+                                        <a class="dropdown-item" role="presentation" href="#"><i
+                                                class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Perfil</a><a
+                                            class="dropdown-item" role="presentation" href="#"><i
+                                                class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Configuración</a>
+                                        <a class="dropdown-item" role="presentation" href="#"><i
+                                                class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Actividad
+                                        </a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation"
+                                            href="#"><i
+                                                class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Salir</a>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
@@ -85,97 +133,86 @@
                 </nav>
                 <div class="container-fluid">
                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                        <h3 class="text-dark mb-0">Perfil Usuario</h3>
+                        <h2 class="text-dark mb-0"> <b>Perfil</b></h2>
                     </div>
-                    <!-- Start: Chart -->
-                    <div class="row">
-                        <div class="col-lg-12 col-xl-12" style="padding: 15px;margin: 10px;">
-                            <div class="card shadow mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center" style="margin: 0px;">
-                                    <h6 class="text-primary font-weight-bold m-0">Aston</h6>
-                                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"><strong>&lt; Regresar&nbsp;</strong></button>
-                                        <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in"
-                                            role="menu">
-                                            <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" role="presentation" href="#">&nbsp;Action</a><a class="dropdown-item" role="presentation" href="#">&nbsp;Another action</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="#">&nbsp;Something else here</a></div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <form>
-                                        <div class="form-row">
-                                            <div class="col">
-                                                <div class="form-group"><label for="email"><br></label><label for="last_name"><strong>Rutinas Creadas</strong><br></label>
-                                                    <div class="col-lg-12 col-xl-12" style="padding: 15px;margin: 10px;">
-                                                        <form>
-                                                            <h1>Nombre Rutina</h1>
-                                                        </form>
-                                                        <div class="card shadow mb-4">
-                                                            <div class="card-header d-flex justify-content-between align-items-center" style="margin: 0px;">
-                                                                <p>Clasificatoria: Pierna</p>
-                                                                <p>Dificultad: Intermedio</p>
-                                                                <p>Creada por admin</p>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <h1></h1>
-                                                                <p>Tipo de Ejercicio</p>
-                                                                <p style="height: 104px;">Descripción:&nbsp;</p>
-                                                                <p>Link:&nbsp;https://www.youtube.com/watch?v=l7YHAhHe5fM&amp;ab_channel=EntrenadorPersonal-Malagaentrena</p><textarea class="form-control" style="width: 880px;height: 40px;"></textarea>
-                                                                <div
-                                                                    class="btn-group" role="group"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col">
-                                        <div class="form-group"><label for="last_name"><strong>Rutinas Compartidas</strong><br></label>
-                                            <div class="col-lg-12 col-xl-12" style="padding: 15px;margin: 10px;">
-                                                <form>
-                                                    <h1>Nombre Rutina</h1>
-                                                </form>
-                                                <div class="card shadow mb-4">
-                                                    <div class="card-header d-flex justify-content-between align-items-center" style="margin: 0px;">
-                                                        <p>Clasificatoria: Pierna</p>
-                                                        <p>Dificultad: Intermedio</p>
-                                                        <p>Creada por admin</p>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h1></h1>
-                                                        <p>Tipo de Ejercicio</p>
-                                                        <p style="height: 104px;">Descripción:&nbsp;</p>
-                                                        <p>Link:&nbsp;https://www.youtube.com/watch?v=l7YHAhHe5fM&amp;ab_channel=EntrenadorPersonal-Malagaentrena</p><textarea class="form-control" style="width: 880px;height: 40px;"></textarea>
-                                                        <div class="btn-group"
-                                                            role="group"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                </form>
-                            </div>
-                            <div class="card-body">
-                                <div class="btn-group" role="group"></div><button class="btn btn-primary btn-sm" type="submit">Seguir Usuario</button></div>
-                        </div>
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-dark mb-0"> <b>Mis rutinas creadas</b></h2>
                     </div>
                 </div>
-                <!-- End: Chart -->
+                <div class="container-fluid">
+                    <!-- Start: Chart -->
+                    {%for rut in rutinas%}
+                    <div class=" d-flex justify-content-center">
+                        <div class="col-lg-12 col-xl-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center"
+                                    style="margin: 0px;">
+                                    <h6 class="text-primary font-weight-bold m-0"> Clasificación: {{rut.clasificacion}}
+                                    </h6>
+
+                                    <h6 class="text-primary font-weight-bold m-0">Dificultad: {{ rut.dificultad }} </a>
+                                    </h6>
+                                    <h6 class="text-primary font-weight-bold m-0">Creada por <a
+                                            href="#">{{rut.usuario.usuario}}</a> </h6>
+                                </div>
+
+                                <div class="text-center rutina">
+                                    {% if rut.genero == 'M' %}
+                                    <p><b>Recomendado para:</b> Hombres</p>
+                                    {% endif %}
+                                    {% if rut.genero == 'F' %}
+                                    <p><b>Recomendado para:</b> Mujeres</p>
+                                    {% endif %}
+                                    {% if rut.genero == 'A' %}
+                                    <p><b>Recomendado para:</b> Hombres y mujeres</p>
+                                    {% endif %}
+                                    <p><b>Sitio recomendado:</b> {{rut.sitio}} <span class="glyphicon glyphicon-home"
+                                            aria-hidden="true"></span> </p>
+
+                                    <p style="height: 104px;"><b>Descripción:</b> {{rut.descripcion}}</p>
+
+                                    {% csrf_token %}
+                                    <div class="card-body">
+                                        <div></div>
+                                        <div class="row">
+                                            <div class="col-auto mr-auto">
+                                                <button class="btn btn-primary seguir"
+                                                    data-usuario="{{usuario.usuario}}" data-rutina="{{rut.id}}">
+                                                    Publicar
+                                                </button>
+                                            </div>
+                                            <div class="col-auto">
+                                                <form method="POST" action="/exercisesList/">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="user" value="{{usuario.usuario}}">
+                                                    <input type="hidden" name="rutineId" value="{{rut.id}}">
+                                                    <button type="submit" class="btn btn-success">Ver</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- End: Chart -->
+                </div>
             </div>
-        </div>
-        <footer class="bg-white sticky-footer">
-            <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Copyright © Brand 2021</span></div>
-            </div>
-        </footer>
-    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>GymManagement</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="{% static 'assets/js/script.min.js' %}"></script>
     <script src="{% static 'assets/js/main_view.js' %}"></script>
+
 </body>
 
 </html>
