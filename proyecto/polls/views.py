@@ -34,9 +34,18 @@ def crearRutinaView( request ):
     usuario = checkUser(request.POST['usr'])
     if not usuario:
         return render(request, 'login.html', context={'msg': "Usuario no existente"})
-    return render(request, 'crearRutina.html', {'usuario': usuario, 'clasificacion': getClasificationsOfRutines()})
+    return render(request, 'crearRutina.html', {'usuario': usuario, 'clasificacion': getAllClasifications()})
 
-
+def getAllClasifications():
+    allClasifications = set()
+    allClasifications.add('Pierna')
+    allClasifications.add('Brazo')
+    allClasifications.add('Hombro')
+    allClasifications.add('Espalda')
+    allClasifications.add('Abdomen')
+    allClasifications.add('Cardio')
+    
+    return allClasifications
 
 def agregarEjercicioXRutinaView(request):
     usuario = checkUser(request.POST['usr'])
@@ -61,6 +70,32 @@ def agregarEjercicioXRutinaView2(request):
         rutina=rutina2, ejercicio=tipoEjercicio)
     nuevo_ejercicioxrutina.save()
     return render(request, 'agregarEjercicioXRutina.html', {'ejerciciosRutina': getEjercicioXRutina(rutina2), 'usuario': usuario, 'rutina': rutina2, 'ejercicios': getTodosEjercicios()})
+
+def miPerfilView(request):
+    usuario = checkUser(request.POST['usuario'])
+    rutinas = Rutina.objects.all()
+    rutinasCreadas = set()
+    for rutina in rutinas:
+        if rutina.usuario == usuario:
+            rutinasCreadas.add(rutina)
+    return render(request, 'verMiPerfil.html', {'usuario': usuario, 'rutinas': rutinasCreadas})
+
+def actualizarPerfil(request):
+    usuario = checkUser(request.POST['usuario'])
+    usuario.nombre = request.POST['nombre']
+    usuario.apellido = request.POST['apellido']
+    usuario.correo = request.POST['correo']
+    usuario.genero = request.POST['genero']
+    if request.POST['clave'] != '':
+        usuario.clave = request.POST['clave']
+    rutinas = Rutina.objects.all()
+    rutinasCreadas = set()
+    for rutina in rutinas:
+        if rutina.usuario == usuario:
+            rutinasCreadas.add(rutina)
+
+    usuario.save()
+    return render(request, 'verMiPerfil.html',{'usuario':usuario, 'rutinas':rutinasCreadas})
 
 def getTodosEjercicios():
     ejercicios = Ejercicio.objects.all()
@@ -88,7 +123,7 @@ def getEjercicioXRutina(rutina):
     ejerciciosxrutinasTodos = set()
     for ejerciciosxrutina in ejerciciosxrutinas:
         if ejerciciosxrutina.rutina == rutina:
-            ejerciciosxrutinasTodos.add(ejerciciosxrutina.ejercicio.nombre)
+            ejerciciosxrutinasTodos.add(ejerciciosxrutina.ejercicio)
     return ejerciciosxrutinasTodos
 
 def register(request):
