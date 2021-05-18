@@ -133,49 +133,13 @@
                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
                         <h2 class="text-dark mb-0"> <b>Perfil</b></h2>
                     </div>
-                    <form class="user" action="/actualizarPerfil/" method="POST" >
+                    <form class="user" action="/verPerfilUsuario/" method="POST" >
                         {% csrf_token %}
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <h3> <b>Nickname: </b> {{usuario.usuario}}</h3>
                             </div>
                         </div>
-                       
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-6">
-                                <h3> <b>Correo: </b> {{usuario.nombre}}
-                                </h3>
-                            </div>
-                            <div class="col-sm-6">
-                                <h3><b>Genero: </b>
-                                    <select required class="form-control " name="genero" id="genero">
-                                        {% if usuario.genero == 'M' %}
-                                        <option value="M">Masculino</option>
-                                        <option value="F">Femenino</option>
-                                        {% endif %}
-                                        {% if usuario.genero == 'F' %}
-                                        <option value="F">Femenino</option>
-                                        <option value="M">Masculino</option>
-                                        {% endif %}
-                                    </select>
-                                </h3>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-6">
-                                <h3> <b>Contraseña: </b>
-                                    <input required class="form-control form-control-user" type="password" id="clave"
-                                        value="{{usuario.clave}}" name="clave">
-                                </h3>
-                            </div>
-                        </div>
-                        <p></p>
-                        <input hidden name="usuario" id="usuario" value="{{usuario.usuario}}">
-                        <button class="btn btn-primary btn-block text-white btn-user" type="submit">Actualizar
-                            datos</button>
-                        <hr>
-                        <hr>
                     </form>
                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
                         <h2 class="text-dark mb-0"> <b>Mis rutinas creadas</b></h2>
