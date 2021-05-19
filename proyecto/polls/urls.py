@@ -9,6 +9,8 @@ urlpatterns = [
     path('mainView/',views.mainView,name='mainView'),
     path('exerciseView/',views.exerciseView,name='exercises'),
     path('exercisesListView/',views.exercisesListView,name='exercisesList'),
+    path('listaUsuarioView/',views.listaUsuarioView,name='listaUsuarioView'),
+    path('verPerfilUsuarioView/',views.verPerfilUsuarioView,name='verPerfilUsuarioView'),
 
     path('crearRutinaView/',views.crearRutinaView,name = 'crearRutina'),
     path('agregarEjercicioXRutinaView/',views.agregarEjercicioXRutinaView, name = 'agregarEjercicioXRutina'),

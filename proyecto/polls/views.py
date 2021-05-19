@@ -264,6 +264,37 @@ def irSala(request):
 
     return render(request, 'sala.html', {'sala': request.POST['sala'], 'usuario': usuario, 'messages': messages})
 
+def listaUsuarioView(request):
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
+    usuario = checkUser(request.POST['usr'])
+    print(request.POST['usr'])
+    busqueda = request.POST.get('userBuscar')
+    #ListaUsuario = checkUser(request.POST['buscar'])
+    usuarios = Usuario.objects.all()
+    #valor = Usuario.objects.filter(ListaUsuario = Usuario.nombre('user'), Usuario = usuarios.set())
+    usuarioEncontrados = set()
+    for ListaUsuario in usuarios:
+         if ListaUsuario.usuario.find(busqueda) >= 0:
+             usuarioEncontrados.add(ListaUsuario)
+    return render(request, 'listaUsuarioView.html', {'usuario' : usuario, 'usuarios' : usuarioEncontrados})
+
+def verPerfilUsuarioView(request):
+
+    mismo = request.POST['user1']== request.POST.get('usuario')
+    print(request.POST['user1'])
+    print(request.POST.get('usuario'))
+    usuario= checkUser(request.POST['user1'])
+    usuarios = request.POST.get('usuario')
+
+    rutinas = Rutina.objects.all()
+    rutinasCreadas = set()
+
+    for rutina in rutinas:
+        if rutina.usuario == usuario:
+            rutinasCreadas.add(rutina)
+    return render(request, 'verPerfilUsuario.html', {'usuario': usuario, 'rutinas' : rutinasCreadas, 'mismo':mismo})
+
 def seguirRutina(request):
     print(request.POST)
     usuario = checkUser(request.POST['usuario'])
