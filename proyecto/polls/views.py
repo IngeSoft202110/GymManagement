@@ -8,33 +8,42 @@ from json import dumps
 import datetime
 from django.db.models import Q
 
+
 def loginView(request):
     return render(request, 'login.html')
+
 
 def index(request):
     return render(request, 'index.html')
 
+
 def mainView(request):
     return render(request, 'main_view.html')
 
+
 def registerView(request):
     return render(request, 'register.html')
+
 
 def exerciseView(request):
     ejercicios = Ejercicio.objects.all()
     return render(request, 'exercise.html', {'ejercicios': ejercicios})
 
+
 def exercisesListView(request):
     return render(request, 'exercisesList.html')
+
 
 def exercisesListRutinaView(request):
     return render(request, 'exercisesListRutina.html')
 
-def crearRutinaView( request ):
+
+def crearRutinaView(request):
     usuario = checkUser(request.POST['usr'])
     if not usuario:
         return render(request, 'login.html', context={'msg': "Usuario no existente"})
     return render(request, 'crearRutina.html', {'usuario': usuario, 'clasificacion': getAllClasifications()})
+
 
 def getAllClasifications():
     allClasifications = set()
@@ -44,8 +53,9 @@ def getAllClasifications():
     allClasifications.add('Espalda')
     allClasifications.add('Abdomen')
     allClasifications.add('Cardio')
-    
+
     return allClasifications
+
 
 def agregarEjercicioXRutinaView(request):
     usuario = checkUser(request.POST['usr'])
@@ -61,6 +71,7 @@ def agregarEjercicioXRutinaView(request):
         nueva_rutina.save()
     return render(request, 'agregarEjercicioXRutina.html', {'ejerciciosRutina': "", 'usuario': usuario, 'rutina': nueva_rutina, 'ejercicios': getTodosEjercicios()})
 
+
 def agregarEjercicioXRutinaView2(request):
     usuario = checkUser(request.POST['usr'])
     ejercicio = request.POST['ejercicio']
@@ -71,6 +82,7 @@ def agregarEjercicioXRutinaView2(request):
     nuevo_ejercicioxrutina.save()
     return render(request, 'agregarEjercicioXRutina.html', {'ejerciciosRutina': getEjercicioXRutina(rutina2), 'usuario': usuario, 'rutina': rutina2, 'ejercicios': getTodosEjercicios()})
 
+
 def miPerfilView(request):
     usuario = checkUser(request.POST['usuario'])
     rutinas = Rutina.objects.all()
@@ -79,6 +91,7 @@ def miPerfilView(request):
         if rutina.usuario == usuario:
             rutinasCreadas.add(rutina)
     return render(request, 'verMiPerfil.html', {'usuario': usuario, 'rutinas': rutinasCreadas})
+
 
 def actualizarPerfil(request):
     usuario = checkUser(request.POST['usuario'])
@@ -95,7 +108,8 @@ def actualizarPerfil(request):
             rutinasCreadas.add(rutina)
 
     usuario.save()
-    return render(request, 'verMiPerfil.html',{'usuario':usuario, 'rutinas':rutinasCreadas})
+    return render(request, 'verMiPerfil.html', {'usuario': usuario, 'rutinas': rutinasCreadas})
+
 
 def getTodosEjercicios():
     ejercicios = Ejercicio.objects.all()
@@ -104,12 +118,14 @@ def getTodosEjercicios():
         ejerciciosTodos.add(ejercicio.nombre)
     return ejerciciosTodos
 
+
 def getRutina(idRutina):
     rutinas = Rutina.objects.all()
     for rutina in rutinas:
         if rutina.id == idRutina:
             return rutina
     return 0
+
 
 def getEjercicio(nombreEjercicio):
     ejercicios = Ejercicio.objects.all()
@@ -118,6 +134,7 @@ def getEjercicio(nombreEjercicio):
             return ejercicio
     return 0
 
+
 def getEjercicioXRutina(rutina):
     ejerciciosxrutinas = EjercicioXRutina.objects.all()
     ejerciciosxrutinasTodos = set()
@@ -125,6 +142,7 @@ def getEjercicioXRutina(rutina):
         if ejerciciosxrutina.rutina == rutina:
             ejerciciosxrutinasTodos.add(ejerciciosxrutina.ejercicio)
     return ejerciciosxrutinasTodos
+
 
 def register(request):
 
@@ -144,11 +162,13 @@ def register(request):
     else:
         return render(request, 'register.html', {'msg': "Usuario existente"})
 
+
 def checkUser(usuario):
     try:
         return Usuario.objects.get(usuario=usuario)
     except Exception:
         return False
+
 
 def main_view(request):
 
@@ -158,8 +178,8 @@ def main_view(request):
     if not usuario:
         return render(request, 'login.html', context={'msg': "Usuario no existente"})
 
-    rutinas = Rutina.objects.filter(Q(genero='A') | Q(
-        genero=usuario.genero)).order_by('numeroLikes').reverse()
+    rutinas = Rutina.objects.filter((Q(genero='A') | Q(
+        genero=usuario.genero)) & Q(estatus='APROBADO')).order_by('numeroLikes').reverse()
     print(request.POST)
     if not "password" in request.POST:
         return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
@@ -169,12 +189,14 @@ def main_view(request):
 
     return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
 
+
 def getClasificationsOfRutines():
     rutinas = Rutina.objects.all()
     clasificaciones = set()
     for rutina in rutinas:
         clasificaciones.add(rutina.clasificacion)
     return clasificaciones
+
 
 def filtrarRutina(request):
     if not checkPostRequest(request):
@@ -183,12 +205,13 @@ def filtrarRutina(request):
 
     if request.POST['clasificacion'] == "todas":
         rutinas = Rutina.objects.filter(Q(sitio=request.POST['sitio']) & (
-            Q(genero='A') | Q(genero=usuario.genero))).order_by('numeroLikes')
+            Q(genero='A') | Q(genero=usuario.genero)) & (Q(estatus='APROBADO'))).order_by('numeroLikes')
         return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
 
     rutinas = Rutina.objects.filter(Q(sitio=request.POST['sitio']) & Q(clasificacion=request.POST['clasificacion']) & (
         Q(genero='A') | Q(genero=usuario.genero))).order_by('numeroLikes')
     return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
+
 
 def exercisesList(request):
     if not checkPostRequest(request):
@@ -225,6 +248,7 @@ def comentar(request):
     else:
         return JsonResponse({"msg": "no hubo comentario"}, status=200)
 
+
 def verComentarios(request):
     if not checkPostRequest(request):
         return render(request, 'login.html')
@@ -232,6 +256,7 @@ def verComentarios(request):
     rutina = Rutina.objects.get(id=int(request.POST["rutina"]))
     comentarios = Comentario.objects.filter(Q(rutina=rutina))
     return render(request, "coments.html", {'usuario': usuario, 'comentarios': comentarios, 'rutina': rutina})
+
 
 def verChats(request):
     if not checkPostRequest(request):
@@ -241,19 +266,22 @@ def verChats(request):
 
     return render(request, "bandejaMensajes.html", {'usuario': checkUser(request.POST['usuario']), 'salas': salas})
 
+
 def checkPostRequest(request):
     if not request.POST:
         return False
     return True
 
+
 def guardarRutinaView(request):
-    usuario= checkUser(request.POST['usuario'])
+    usuario = checkUser(request.POST['usuario'])
     usuarioxrutina = UsuarioxRutina.objects.all()
     listado = set()
     for rutina in usuarioxrutina:
         if rutina.usuario == usuario:
             listado.add(rutina.rutina)
-    return render(request, 'guardarRutina.html', {'rutinas':listado, 'usuario':usuario})
+    return render(request, 'guardarRutina.html', {'rutinas': listado, 'usuario': usuario})
+
 
 def irSala(request):
     if not checkPostRequest(request):
@@ -263,6 +291,7 @@ def irSala(request):
     messages = Mensaje.objects.filter(sala=request.POST['sala'])
 
     return render(request, 'sala.html', {'sala': request.POST['sala'], 'usuario': usuario, 'messages': messages})
+
 
 def listaUsuarioView(request):
     if not checkPostRequest(request):
@@ -275,17 +304,18 @@ def listaUsuarioView(request):
     #valor = Usuario.objects.filter(ListaUsuario = Usuario.nombre('user'), Usuario = usuarios.set())
     usuarioEncontrados = set()
     for ListaUsuario in usuarios:
-         if ListaUsuario.usuario.find(busqueda) >= 0:
-             usuarioEncontrados.add(ListaUsuario)
-    return render(request, 'listaUsuarioView.html', {'usuario' : usuario, 'usuarios' : usuarioEncontrados})
+        if ListaUsuario.usuario.find(busqueda) >= 0:
+            usuarioEncontrados.add(ListaUsuario)
+    return render(request, 'listaUsuarioView.html', {'usuario': usuario, 'usuarios': usuarioEncontrados})
+
 
 def verPerfilUsuarioView(request):
 
-    mismo = request.POST['user1']== request.POST.get('usuario')
+    mismo = request.POST['user1'] == request.POST.get('usuario')
     print(request.POST['user1'])
     print(request.POST.get('usuario'))
-    usuario= checkUser(request.POST['user1'])
-    usuarios = request.POST.get('usuario')
+    usuario = checkUser(request.POST['user1'])
+    usuarios = checkUser(request.POST['usuario'])
 
     rutinas = Rutina.objects.all()
     rutinasCreadas = set()
@@ -293,7 +323,8 @@ def verPerfilUsuarioView(request):
     for rutina in rutinas:
         if rutina.usuario == usuario:
             rutinasCreadas.add(rutina)
-    return render(request, 'verPerfilUsuario.html', {'usuario': usuario, 'rutinas' : rutinasCreadas, 'mismo':mismo})
+    return render(request, 'verPerfilUsuario.html', {'usuario': usuarios, "usuarioPerfil": usuario, 'rutinas': rutinasCreadas, 'mismo': mismo})
+
 
 def seguirRutina(request):
     print(request.POST)
@@ -310,6 +341,7 @@ def seguirRutina(request):
 
     return JsonResponse({"msg": "rutina agregada"}, status=200)
 
+
 def like(request):
     print(request.POST)
     usuario = checkUser(request.POST['usuario'])
@@ -320,11 +352,10 @@ def like(request):
         Q(usuario=usuario) | Q(rutina=rutina))
     print(buscarLike)
     if not buscarLike:
-        rutina.numeroLikes+=1
+        rutina.numeroLikes += 1
         rutina.save()
         like = Like(rutina=rutina, usuario=usuario)
         like.save()
-        
 
     return JsonResponse({"msg": "like agregado"}, status=200)
 
@@ -332,18 +363,20 @@ def like(request):
 def dejarSeguirRutina(request):
     usuario = checkUser(request.POST['usuario'])
     rutina = Rutina.objects.get(id=request.POST["rutina"])
-    buscarUsuarioXRutina = UsuarioxRutina.objects.filter(Q(usuario=usuario.id) & Q(rutina=rutina.id))
+    buscarUsuarioXRutina = UsuarioxRutina.objects.filter(
+        Q(usuario=usuario.id) & Q(rutina=rutina.id))
 
     if buscarUsuarioXRutina:
         buscarUsuarioXRutina.delete()
-    
+
     usuarioxrutina = UsuarioxRutina.objects.all()
     listado = set()
     for rutina in usuarioxrutina:
         if rutina.usuario == usuario:
             listado.add(rutina.rutina)
 
-    return render(request, 'guardarRutina.html', {'rutinas':listado, 'usuario':usuario})
+    return render(request, 'guardarRutina.html', {'rutinas': listado, 'usuario': usuario})
+
 
 def guardarHistorial(request):
     usuario = checkUser(request.POST['usuario'])
@@ -352,31 +385,48 @@ def guardarHistorial(request):
     historial.save()
     return JsonResponse({"msg": "rutina agregada"}, status=200)
 
+
 def verProgreso(request):
     if not checkPostRequest(request):
         return render(request, 'login.html')
     usuario = checkUser(request.POST['usuario'])
-    historial =  Historial.objects.filter(Q(usuario=usuario))
+    historial = Historial.objects.filter(Q(usuario=usuario))
 
     now = datetime.datetime.now()
     format = now.strftime('%d,%m,%Y')
-    dias= []
-    cantidadEjercicios=[]
-    for i in range(4,-1,-1):
+    dias = []
+    cantidadEjercicios = []
+    for i in range(4, -1, -1):
         past = now - datetime.timedelta(days=i)
         dias.append(past.strftime('%d-%m-%Y'))
         print(past)
-        contador=0
+        contador = 0
         for h in historial:
-            #print(h.fecha)
-            if h.fecha.strftime('%d,%m,%Y')==past.strftime('%d,%m,%Y'):
-                contador+=1
+            # print(h.fecha)
+            if h.fecha.strftime('%d,%m,%Y') == past.strftime('%d,%m,%Y'):
+                contador += 1
         cantidadEjercicios.append(contador)
-  
+
     data = {
         'dias': dias,
-        'cantidad':cantidadEjercicios
+        'cantidad': cantidadEjercicios
     }
     dataJSON = dumps(data)
-    return render(request, 'progreso.html',{'usuario':usuario,'ejercicios':historial, 'datos' :dataJSON})
+    return render(request, 'progreso.html', {'usuario': usuario, 'ejercicios': historial, 'datos': dataJSON})
 
+
+def crearSala(request):
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
+    usuario = checkUser(request.POST['usuario'])
+    usuarioP = checkUser(request.POST['usuarioPerfil'])
+    sala = Sala.objects.filter((Q(usuario1=request.POST['usuario']) & Q(usuario2=request.POST['usuarioPerfil'])) | (
+        Q(usuario1=request.POST['usuarioPerfil']) & Q(usuario2=request.POST['usuario'])))
+    if not sala:
+        sala = Sala(usuario1=request.POST['usuario'],
+                    usuario2=request.POST['usuarioPerfil'])
+        sala.save()
+    salas = Sala.objects.filter(Q(usuario1=request.POST['usuario']) | Q(
+        usuario2=request.POST['usuario'])).distinct()
+
+    return render(request, "bandejaMensajes.html", {'usuario': usuario, 'salas': salas})

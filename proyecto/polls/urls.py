@@ -31,6 +31,7 @@ urlpatterns = [
     path('sala/', views.irSala, name='sala'),
     path('dejarSeguirRutina/', views.dejarSeguirRutina, name='dejarSeguirRutina'),
     path('verProgreso/', views.verProgreso, name='verProgreso'),
+    path('crearSala/', views.crearSala, name='crearSala'),
 
 
     #Ajax

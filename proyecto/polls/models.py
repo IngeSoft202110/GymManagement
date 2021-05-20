@@ -43,6 +43,13 @@ class Rutina(models.Model):
         ('Casa', 'Casa'),
         ('Gimnasio', 'Gimnasio')
     )
+
+    STATUS = (
+        ('SIN COMPARTIR', 'SIN COMPARTIR'),
+        ('ESPERA', 'ESPERA'),
+        ('APROBADO', 'APROBADO'),
+        ('NO APROBADO', 'NO APROBADO')
+    )
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, default=1)
     genero = models.CharField(max_length=1, null=False, choices=GENDERS)
     clasificacion = models.CharField(
@@ -53,9 +60,12 @@ class Rutina(models.Model):
         max_length=20, null=False, choices=DIFFICULTY, default="Principiante")
     sitio = models.CharField(
         max_length=20, null=False, choices=PLACES, default="Casa")
+    estatus = models.CharField(
+        max_length=20, null=False, choices=STATUS, default="SIN COMPARTIR")
+
 
     def __str__(self):
-        return f"{self.id}, {self.usuario}, {self.genero}, {self.clasificacion}, {self.descripcion}, {self.numeroLikes}, {self.dificultad}, {self.sitio} "
+        return f"{self.id}, {self.usuario}, {self.genero}, {self.clasificacion}, {self.descripcion}, {self.numeroLikes}, {self.dificultad}, {self.sitio}, {self.estatus} "
 
 class Ejercicio(models.Model):
     nombre = models.CharField(max_length=30, null=False)

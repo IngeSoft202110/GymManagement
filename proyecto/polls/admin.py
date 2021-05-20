@@ -10,7 +10,7 @@ class UsuarioAdmin(admin.ModelAdmin):
 
 @admin.register(Rutina )
 class RutinaAdmin( admin.ModelAdmin): 
-    list_display = ( "id", "usuario" , "genero" ,"clasificacion", "descripcion", "numeroLikes", "dificultad", "sitio")
+    list_display = ( "id", "usuario" , "genero" ,"clasificacion", "descripcion", "numeroLikes", "dificultad", "sitio", "estatus")
 
 @admin.register( Ejercicio)
 class EjercicioAdmin(admin.ModelAdmin): 

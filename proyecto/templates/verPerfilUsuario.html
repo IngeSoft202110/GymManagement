@@ -109,7 +109,12 @@
                             </li>
                             <div>
                                 {% if not mismo %}
-                                <button class="btn btn-primary py-0" type="button">Crear sala de chat</button>
+                                <form action="/crearSala/" method="POST">
+                                    {% csrf_token %}
+                                    <input name="usuario" hidden="true" value="{{usuario.usuario}}">
+                                    <input name="usuarioPerfil" hidden="true" value="{{usuarioPerfil.usuario}}">
+                                    <button class="btn btn-primary py-0" type="input">Crear sala de chat</button>
+                                </form>
                                 {% endif %}
                             </div>
                             <div class="d-none d-sm-block topbar-divider"></div>
@@ -137,7 +142,7 @@
                 </nav>
                 <div class="container-fluid">
                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                        <h2 class="text-dark mb-0"> <b>Perfil</b></h2>
+                        <h2 class="text-dark mb-0"> <b>Perfil  de {{usuarioPerfil.usuario}}</b></h2>
                     </div>
                     <form class="user" action="/verPerfilUsuario/" method="POST">
                         {% csrf_token %}
