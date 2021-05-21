@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
 from .models import Usuario, Rutina, Ejercicio, EjercicioXRutina, Historial
-from .models import Comentario, Sala, Mensaje, UsuarioxRutina, Like
+from .models import Comentario, Sala, Mensaje, UsuarioxRutina, Like, Experto
 from json import dumps
 import datetime
 from django.db.models import Q
@@ -170,24 +170,44 @@ def checkUser(usuario):
         return False
 
 
+def checkExperto(experto):
+    try:
+        return Experto.objects.get(usuario=experto)
+    except Exception:
+        return False
+
+
 def main_view(request):
 
     if not checkPostRequest(request):
         return render(request, 'login.html')
     usuario = checkUser(request.POST['usuario'])
-    if not usuario:
-        return render(request, 'login.html', context={'msg': "Usuario no existente"})
-
-    rutinas = Rutina.objects.filter((Q(genero='A') | Q(
-        genero=usuario.genero)) & Q(estatus='APROBADO')).order_by('numeroLikes').reverse()
     print(request.POST)
-    if not "password" in request.POST:
+    if not usuario == False:
+        rutinas = Rutina.objects.filter((Q(genero='A') | Q(
+            genero=usuario.genero)) & Q(estatus='APROBADO')).order_by('numeroLikes').reverse()
+        
+        if not "password" in request.POST:
+            return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
+        if usuario.clave != request.POST['password']:
+            return render(request, 'login.html', context={'msg': "Clave incorrecta"})
+
         return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
 
-    if usuario.clave != request.POST['password']:
-        return render(request, 'login.html', context={'msg': "Clave incorrecta"})
+    usuario = checkExperto(request.POST['usuario'])
+    if not usuario == False:
+        rutinas = Rutina.objects.filter(Q(estatus='ESPERA'))
+        print(rutinas)
 
-    return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
+        if not "password" in request.POST:
+            return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
+
+        if usuario.clave != request.POST['password']:
+            return render(request, 'login.html', context={'msg': "Clave incorrecta"})
+
+        return render(request, 'vistaExperto.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
+
+    return render(request, 'login.html', context={'msg': "Usuario no existente"})
 
 
 def getClasificationsOfRutines():
@@ -208,7 +228,7 @@ def filtrarRutina(request):
             Q(genero='A') | Q(genero=usuario.genero)) & (Q(estatus='APROBADO'))).order_by('numeroLikes')
         return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
 
-    rutinas = Rutina.objects.filter(Q(sitio=request.POST['sitio']) & Q(clasificacion=request.POST['clasificacion']) & (
+    rutinas = Rutina.objects.filter(Q(sitio=request.POST['sitio']) & (Q(estatus='APROBADO')) & Q(clasificacion=request.POST['clasificacion']) & (
         Q(genero='A') | Q(genero=usuario.genero))).order_by('numeroLikes')
     return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
 
@@ -415,6 +435,43 @@ def verProgreso(request):
     return render(request, 'progreso.html', {'usuario': usuario, 'ejercicios': historial, 'datos': dataJSON})
 
 
+def compartirRutina(request):
+
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
+    print(request.POST['rutineId'])
+    usuario = checkUser(request.POST['usuario'])
+    rutina = Rutina.objects.get(id=request.POST['rutineId'])
+    rutina.estatus = "ESPERA"
+    rutina.save()
+    return miPerfilView(request)
+
+
+def aprobarRutina(request):
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
+    print(request.POST['rutineId'])
+    usuario = checkExperto(request.POST['usuario'])
+    rutina = Rutina.objects.get(id=request.POST['rutineId'])
+    rutina.estatus = "APROBADO"
+    rutina.save()
+    rutinas = Rutina.objects.filter(Q(estatus='ESPERA'))
+    return render(request, 'vistaExperto.html', {'usuario': usuario, 'rutinas': rutinas})
+
+
+def noAprobarRutina(request):
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
+    print(request.POST['rutineId'])
+    usuario = checkExperto(request.POST['usuario'])
+    rutina = Rutina.objects.get(id=request.POST['rutineId'])
+    rutina.estatus = "NO APROBADO"
+    rutina.save()
+
+    rutinas = Rutina.objects.filter(Q(estatus='ESPERA'))
+    return render(request, 'vistaExperto.html', {'usuario': usuario, 'rutinas': rutinas})
+
+
 def crearSala(request):
     if not checkPostRequest(request):
         return render(request, 'login.html')
@@ -430,3 +487,14 @@ def crearSala(request):
         usuario2=request.POST['usuario'])).distinct()
 
     return render(request, "bandejaMensajes.html", {'usuario': usuario, 'salas': salas})
+
+
+def verEjerciciosExperto(request):
+    if not checkPostRequest(request):
+        return render(request, 'login.html')
+    usuario = checkExperto(request.POST['user'])
+    ejercicios = EjercicioXRutina.objects.filter(
+        Q(rutina=request.POST['rutineId']))
+    rutina = Rutina.objects.get(id=request.POST['rutineId'])
+
+    return render(request, 'verEjerciciosExperto.html', {'usuario': usuario, 'ejercicios': ejercicios, 'rutina': rutina})

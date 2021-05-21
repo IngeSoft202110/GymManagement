@@ -32,6 +32,10 @@ urlpatterns = [
     path('dejarSeguirRutina/', views.dejarSeguirRutina, name='dejarSeguirRutina'),
     path('verProgreso/', views.verProgreso, name='verProgreso'),
     path('crearSala/', views.crearSala, name='crearSala'),
+    path('compartirRutina/', views.compartirRutina, name='compartirRutina'),
+    path('verEjerciciosExperto/', views.verEjerciciosExperto, name='verEjerciciosExperto'),
+    path('aprobarRutina/', views.aprobarRutina, name='aprobarRutina'),
+    path('noAprobarRutina/', views.noAprobarRutina, name='noAprobarRutina'),
 
 
     #Ajax
