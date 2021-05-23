@@ -9,6 +9,8 @@ urlpatterns = [
     path('mainView/',views.mainView,name='mainView'),
     path('exerciseView/',views.exerciseView,name='exercises'),
     path('exercisesListView/',views.exercisesListView,name='exercisesList'),
+    path('listaUsuarioView/',views.listaUsuarioView,name='listaUsuarioView'),
+    path('verPerfilUsuarioView/',views.verPerfilUsuarioView,name='verPerfilUsuarioView'),
 
     path('crearRutinaView/',views.crearRutinaView,name = 'crearRutina'),
     path('agregarEjercicioXRutinaView/',views.agregarEjercicioXRutinaView, name = 'agregarEjercicioXRutina'),
@@ -29,6 +31,11 @@ urlpatterns = [
     path('sala/', views.irSala, name='sala'),
     path('dejarSeguirRutina/', views.dejarSeguirRutina, name='dejarSeguirRutina'),
     path('verProgreso/', views.verProgreso, name='verProgreso'),
+    path('crearSala/', views.crearSala, name='crearSala'),
+    path('compartirRutina/', views.compartirRutina, name='compartirRutina'),
+    path('verEjerciciosExperto/', views.verEjerciciosExperto, name='verEjerciciosExperto'),
+    path('aprobarRutina/', views.aprobarRutina, name='aprobarRutina'),
+    path('noAprobarRutina/', views.noAprobarRutina, name='noAprobarRutina'),
 
 
     #Ajax
