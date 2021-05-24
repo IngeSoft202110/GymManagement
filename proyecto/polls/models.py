@@ -14,7 +14,7 @@ class Usuario(models.Model):
     apellido = models.CharField(max_length=264, null=False)
     correo = models.EmailField(null=False)
     genero = models.CharField(max_length=1, null=False, choices=GENDERS)
-    clave = models.CharField(max_length=50, null=False)
+    clave = models.CharField(max_length=256, null=False)
     fecha_nacimiento = models.DateField()
 
     def __str__(self):
@@ -140,7 +140,7 @@ class Experto(models.Model):
     nombre = models.CharField(max_length=264, null=False)
     apellido = models.CharField(max_length=264, null=False)
     correo = models.EmailField(null=False)
-    clave = models.CharField(max_length=50, null=False)
+    clave = models.CharField(max_length=256, null=False)
 
     def __str__(self):
         return f"{self.id}, {self.usuario}, {self.nombre}, {self.apellido}, {self.correo}, {self.clave} "

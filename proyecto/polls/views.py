@@ -7,7 +7,7 @@ from .models import Comentario, Sala, Mensaje, UsuarioxRutina, Like, Experto
 from json import dumps
 import datetime
 from django.db.models import Q
-
+from django.contrib.auth.hashers import make_password, check_password
 
 def loginView(request):
     return render(request, 'login.html')
@@ -154,9 +154,11 @@ def register(request):
         genero = request.POST['genero']
         fecha_nacimiento = request.POST['fecha_nacimiento']
         clave = request.POST['password']
+        encode = make_password(clave)
+
     if not checkUser(usuario):
         nuevo_usuario = Usuario(usuario=usuario, nombre=nombres, apellido=apellidos,
-                                genero=genero, correo=correo, clave=clave, fecha_nacimiento=fecha_nacimiento)
+                                genero=genero, correo=correo, clave=encode, fecha_nacimiento=fecha_nacimiento)
         nuevo_usuario.save()
         return render(request, 'register.html', {'msg': "usuario agregado"})
     else:
@@ -186,10 +188,10 @@ def main_view(request):
     if not usuario == False:
         rutinas = Rutina.objects.filter((Q(genero='A') | Q(
             genero=usuario.genero)) & Q(estatus='APROBADO')).order_by('numeroLikes').reverse()
-        
+        print(check_password(request.POST['password'],usuario.clave))
         if not "password" in request.POST:
             return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
-        if usuario.clave != request.POST['password']:
+        if check_password(request.POST['password'],usuario.clave) == False:
             return render(request, 'login.html', context={'msg': "Clave incorrecta"})
 
         return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
