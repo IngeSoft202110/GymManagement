@@ -96,10 +96,6 @@ def miPerfilView(request):
 
 def actualizarPerfil(request):
     usuario = checkUser(request.POST['usuario'])
-    usuario.nombre = request.POST['nombre']
-    usuario.apellido = request.POST['apellido']
-    usuario.correo = request.POST['correo']
-    usuario.genero = request.POST['genero']
     rutinas = Rutina.objects.all()
     rutinasCreadas = set()
     for rutina in rutinas:
@@ -107,6 +103,10 @@ def actualizarPerfil(request):
             rutinasCreadas.add(rutina)
     if check_password(request.POST['clave'],usuario.clave) == False:
         return render(request,'verMiPerfil.html',{'usuario':usuario,'rutinas':rutinasCreadas,'msg':"Contraseña invalida"})
+    usuario.nombre = request.POST['nombre']
+    usuario.apellido = request.POST['apellido']
+    usuario.correo = request.POST['correo']
+    usuario.genero = request.POST['genero']
     if request.POST['clavenueva'] != '':
         usuario.clave = make_password(request.POST['clavenueva'])
     usuario.save()
