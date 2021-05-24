@@ -9,6 +9,7 @@ import datetime
 from django.db.models import Q
 from django.contrib.auth.hashers import make_password, check_password
 
+
 def loginView(request):
     return render(request, 'login.html')
 
