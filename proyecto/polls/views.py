@@ -100,14 +100,14 @@ def actualizarPerfil(request):
     usuario.apellido = request.POST['apellido']
     usuario.correo = request.POST['correo']
     usuario.genero = request.POST['genero']
-    if request.POST['clave'] != '':
-        usuario.clave = request.POST['clave']
     rutinas = Rutina.objects.all()
     rutinasCreadas = set()
     for rutina in rutinas:
         if rutina.usuario == usuario:
             rutinasCreadas.add(rutina)
-
+    if check_password(request.POST['clave'],usuario.clave) == False:
+        return render(request,'verMiPerfil.html',{'usuario':usuario,'rutinas':rutinasCreadas,'msg':"Contraseña invalida"})
+    usuario.clave = make_password(request.POST['clavenueva'])
     usuario.save()
     return render(request, 'verMiPerfil.html', {'usuario': usuario, 'rutinas': rutinasCreadas})
 
