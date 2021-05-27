@@ -1,6 +1,5 @@
 # GymManagement
-This project is an API REST from Alkomprar, used by manage the user and some functions like pay debts,
-export wallets, etc.
+
 Este proyecto es desarrollado para la materia de Ingeniería de Software de la Pontificia Universidad Javeriana
 
 ## Tecnologías utilizadas
