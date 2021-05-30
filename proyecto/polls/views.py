@@ -190,7 +190,6 @@ def main_view(request):
     if not usuario == False:
         rutinas = Rutina.objects.filter((Q(genero='A') | Q(
             genero=usuario.genero)) & Q(estatus='APROBADO')).order_by('numeroLikes').reverse()
-        print(check_password(request.POST['password'],usuario.clave))
         if not "password" in request.POST:
             return render(request, 'main_view.html', {'usuario': usuario, 'rutinas': rutinas, 'clasificacion': getClasificationsOfRutines()})
         if check_password(request.POST['password'],usuario.clave) == False:
