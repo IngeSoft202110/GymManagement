@@ -80,13 +80,14 @@
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                <div class="container-fluid">
-                        <form action="/listaUsuarioView/"  method = 'POST' 
+                    <div class="container-fluid">
+                        <form action="/listaUsuarioView/" method='POST'
                             class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             {% csrf_token %}
-                            <div class="input-group"><input name="userBuscar" id="userBuscar" class="bg-light form-control border-0 small" type="text"
+                            <div class="input-group"><input name="userBuscar" id="userBuscar"
+                                    class="bg-light form-control border-0 small" type="text"
                                     placeholder="Buscar usuario">
-                                    <input hidden name="usr" value="{{usuario.usuario}}" id = "buscar">
+                                <input hidden name="usr" value="{{usuario.usuario}}" id="buscar">
                                 <div class="input-group-append"><button class="btn btn-primary py-0" type="input"><i
                                             class="fas fa-search"></i></button></div>
                             </div>
@@ -115,7 +116,7 @@
                                             class="d-none d-lg-inline mr-2 text-gray-600 small">{{usuario.usuario}}
                                         </span></a>
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
-                        
+
                                         <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation"
                                             href="/loginView/"><i
                                                 class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Salir</a>
@@ -142,20 +143,22 @@
                             <!-- Start: Bar Chart -->
                             <div class="chart-area">
                                 <canvas id="myChart" width=device height=device></canvas>
-
-
                                 <!-- <canvas data-bs-chart="{&quot;type&quot;:&quot;bar&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;January&quot;,&quot;February&quot;,&quot;March&quot;,&quot;April&quot;,&quot;May&quot;,&quot;June&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Revenue&quot;,&quot;backgroundColor&quot;:&quot;#4e73df&quot;,&quot;borderColor&quot;:&quot;#4e73df&quot;,&quot;data&quot;:[&quot;4512&quot;,&quot;5312&quot;,&quot;6251&quot;,&quot;7841&quot;,&quot;9821&quot;,&quot;14984&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;],&quot;drawOnChartArea&quot;:false},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;]},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}]}}}"></canvas> -->
                             </div>
                             <!-- End: Bar Chart -->
                         </div>
                     </div>
-                    <article></article>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <div class="row">
                         <div class="col">
                             <h3 class="text-dark mb-0">Historial de Ejercicios Realizados</h3>
                         </div>
                     </div>
-                    <!-- Start: Chart -->
                     <div class="row">
                         <div class="col-lg-12 col-xl-12" style="padding: 15px;margin: 10px;">
                             <div class="card shadow mb-4">
@@ -190,9 +193,10 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- End: Chart -->
                 </div>
+
+
             </div>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>

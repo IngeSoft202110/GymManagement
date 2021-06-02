@@ -141,10 +141,10 @@
                         {% csrf_token %}
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <h3> <b>Nombre: </b> {{usuario.nombre}}</h3>
+                                <h3> <b>Nombre: </b> {{usuarioPerfil.nombre}}</h3>
                             </div>
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <h3> <b>apellido: </b> {{usuario.apellido}}</h3>
+                                <h3> <b>apellido: </b> {{usuarioPerfil.apellido}}</h3>
                             </div>
                         </div>
                     </form>
@@ -191,7 +191,7 @@
                                             <div class="col-auto mr-auto">
                                                 <button class="btn btn-primary seguir"
                                                     data-usuario="{{usuario.usuario}}" data-rutina="{{rut.id}}">
-                                                    Publicar
+                                                    seguir
                                                 </button>
                                             </div>
                                             <div class="col-auto">
